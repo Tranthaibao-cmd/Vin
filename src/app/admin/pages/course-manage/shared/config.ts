@@ -1,0 +1,5 @@
+export const CONFIG = {
+
+  MB_UNIT : 1024*1024,
+  FILE_UPLOAD_LIMIT:1024*1024*1024*4
+}

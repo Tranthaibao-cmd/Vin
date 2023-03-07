@@ -1,0 +1,24 @@
+<div class="wrapper">
+    <div class="text-center" style="font-size: 18px; font-weight: bold">{{action}} Môn Học</div>
+    <form class="form" [formGroup]="fg">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Tên môn học</mat-label>
+            <input required matInput formControlName="ten_mon_hoc">
+        </mat-form-field>
+        <mat-label>Ảnh đại diện</mat-label>
+        <input required type="file" (change)="uploadFile($event)">
+        <img src="{{subjectformdata.anh_dai_dien}}">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Mô tả</mat-label>
+            <textarea matInput formControlName="mo_ta"></textarea>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill" *ngIf='this.action == "Cập Nhật"'>
+            <mat-label>Thời gian tạo</mat-label>
+            <input required matInput type="date" formControlName="thoi_gian_tao">
+        </mat-form-field>
+    </form>
+</div>
+<div class="text-center">
+    <button mat-button (click)="doAction()" mat-flat-button color="primary" [disabled]="!fg.valid">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Hủy Bỏ</button>
+</div>

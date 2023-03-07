@@ -1,0 +1,42 @@
+.quiz-wrapper{
+  width: 100%;
+  .btn-new-question-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    span{
+      width: 15%;
+      font-size:18px;
+      font-weight:500;
+    }
+    .btn-add{
+      display: flex;
+      align-items: center;
+      width: 15%;
+      height:40px;
+      border: 1px solid #000;
+      font-size: 18px;
+      font-weight:500;
+    }
+  }
+  app-question{
+    width: 100%;
+  }
+
+  .question-list{
+    margin-top: 20px;
+    width: 100%;
+    .question-container{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content:space-between;
+
+      i{
+        color: rgba(0,0,0,0.5);
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+}

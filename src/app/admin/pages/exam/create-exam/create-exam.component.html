@@ -1,0 +1,13 @@
+<div class="container" [formGroup]='this.fg' >
+  <mat-icon (click)='closeDialog(startDate)' class="close-icon">clear</mat-icon>
+  <label for="" class="name">Tên kỳ thi:</label>
+  <input type="text" class="name-input"  formControlName = 'tenKyThi'>
+  <label for="" class="name">Thời điểm bắt đầu kỳ thi:</label>
+  <ejs-datetimepicker #startDate formControlName ='thoiGianBatDau'  format='dd-MM-yyyy hh:mm a'></ejs-datetimepicker>
+  <label for="" class="name">Thời điểm kết thúc kỳ thi:</label>
+  <ejs-datetimepicker [min]='startDate.value' formControlName= 'thoiGianKetThuc'  format='dd-MM-yyyy hh:mm a'></ejs-datetimepicker>
+  <label for="" class="name">Thời gian làm bài thi(phút):</label>
+  <input type="number" class="name-input" formControlName= 'thoiGianLamBai'>
+  <button mat-raised-button color="primary" (click)='addKyThi(btnAdd)' #btnAdd [disabled]='this.fg.invalid'>{{this.func[this.data.func]}}</button>
+</div>
+

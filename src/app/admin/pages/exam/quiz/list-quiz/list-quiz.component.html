@@ -1,0 +1,124 @@
+<div class="quiz-list-wrapper">
+  <div style="margin-bottom: 30px">
+    <a routerLink="/admin/course-list">Danh sách khóa học > </a>
+    <a routerLink='/admin/exam/{{this.data_global.khoa_hoc.course_id}}'>{{ this.data_global.khoa_hoc.course_name }} > </a>
+    <a>{{ this.data_global.de_thi.name }}  </a>
+  </div>
+  <div class="text-center">
+    <ngx-skeleton-loader
+    *ngIf='!this.contentLoaded'
+        [theme]="{
+          width: '60vh',
+          height: '25px',
+          'animation-duration': '1s',
+          'background-color': '#6c757d'
+
+        }"
+      ></ngx-skeleton-loader>
+    <h1 *ngIf='this.contentLoaded'>{{ this.data_global.de_thi.name }}</h1>
+  </div>
+  <div class="filter-add">
+    <div class="filter">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Tìm kiếm</mat-label>
+        <input matInput  (keyup)='filter($event)'/>
+      </mat-form-field>
+    </div>
+
+    <button
+      mat-icon-button
+      color="primary"
+      (click)='addCauHoi()'
+    >
+      <mat-icon style="font-size: 50px;position: relative;right: 20px;top: 20px;">add_box</mat-icon>
+    </button>
+  </div>
+  <div *ngIf='this.list_cau_hoi_observable | async ' >
+
+  </div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" style="width:100%;">
+      <!-- Position Column -->
+      <ng-container matColumnDef="STT">
+        <th mat-header-cell *matHeaderCellDef style="width: 7%; text-align: center;">STT</th>
+        <td mat-cell *matCellDef="let element; let i = index" style="text-align: center;">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="ten_cau_hoi">
+        <th mat-header-cell *matHeaderCellDef style="width: 16%;">Tên câu hỏi</th>
+        <td mat-cell *matCellDef="let element" style="width: 16%;padding-right: 10px;">{{ element.ten_cau_hoi }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="mo_ta">
+        <th mat-header-cell *matHeaderCellDef style="width: 16%;">Mô tả</th>
+        <!-- <div class="mota" mat-cell *matCellDef="let element"> -->
+        <td class="mota" mat-cell *matCellDef="let element">{{ element.mo_ta }}</td>
+        <!-- {{ element.mo_ta }} -->
+        <!-- </div> -->
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="tg_thuc_thi">
+        <th mat-header-cell *matHeaderCellDef style="width: 8%; text-align: center;">Giới hạn thực thi</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
+          {{ element.gioi_han_thuc_thi }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ten_ham">
+        <th mat-header-cell *matHeaderCellDef style="width: 11%; text-align: center;">Tên hàm</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
+          {{ element.ten_ham }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ds_dau_vao">
+        <th mat-header-cell *matHeaderCellDef style="width: 11%; text-align: center;">Danh sách đầu vào</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
+          <button mat-raised-button color="primary" (click)='DauVao(element)'>Chi tiết</button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ds_dau_ra">
+        <th mat-header-cell *matHeaderCellDef style="width: 11%; text-align: center;">Kiểu dữ liệu đầu ra</th>
+        <td mat-cell *matCellDef="let element"style="text-align: center;">
+          {{element.kieu_du_lieu_dau_ra}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="hoat_dong">
+        <th mat-header-cell *matHeaderCellDef style="width: 20%;">Hoạt động</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color='primary' (click)='CreateTestCase(element)'>
+            Tạo testcase
+          </button>
+          <button
+            mat-icon-button
+            color="accent"
+            aria-label="Example icon button with a home icon"
+          >
+            <mat-icon (click)='edit(element)'>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Example icon button with a home icon"
+            (click)='deleteCauHoi(element)'
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

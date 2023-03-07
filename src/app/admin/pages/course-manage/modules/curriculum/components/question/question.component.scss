@@ -1,0 +1,77 @@
+.question-wrapper {
+  width: 100%;
+
+  app-answer-option,
+  app-normal-editor {
+    width: 100%;
+  }
+
+  .question-type {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    label {
+      width: 15%;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    select {
+      width: 15%;
+      height: 40px;
+      font-size: 18px;
+      font-weight: 400;
+
+
+    }
+
+
+  }
+
+  app-answer-option {
+    margin-bottom: 20px;
+  }
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+
+  .radio-button {
+    margin: 5px;
+    width: 100%;
+  }
+
+  .answer {
+    display: flex;
+    align-items: center;
+
+
+    input[type='radio'],
+    input[type='checkbox'] {
+      accent-color: #232323;
+    }
+
+
+    i {
+      display: none;
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:hover {
+      i {
+        display: block;
+      }
+    }
+  }
+
+}
+
+::ng-deep .mat-radio-label-content {
+  width: 100% !important
+}

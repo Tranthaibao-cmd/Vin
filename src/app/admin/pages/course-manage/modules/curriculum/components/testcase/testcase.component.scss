@@ -1,0 +1,23 @@
+.testcase-wrapper{
+  width: 100%;
+  .label{
+    margin:20px 0px;
+    width: 100%;
+    display:flex;
+    align-items: center;
+    span{
+      font-size:18px;
+      font-weight:500;
+      margin-right: 20px;
+    }
+
+
+  }
+  .testcase-list{
+    .testcase{
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

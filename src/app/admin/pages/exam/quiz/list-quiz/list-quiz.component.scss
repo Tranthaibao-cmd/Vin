@@ -1,0 +1,34 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 50vw;
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: transparent !important;
+}
+::ng-deep .mat-cell{
+  text-align: center;
+}
+::ng-deep th.mat-header-cell{
+  text-align: center !important;
+}
+
+.quiz-list-wrapper {
+    margin-top: 50px;
+   .filter-add {
+     display: flex;
+     justify-content: space-between;
+ }
+}
+.description{
+  overflow: hidden;
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp: 1;
+  height: 50px;
+  line-height: 50px;
+  margin: none !important;
+}

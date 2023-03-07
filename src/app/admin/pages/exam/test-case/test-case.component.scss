@@ -1,0 +1,20 @@
+.testcase_wrapper
+{
+    margin-top: 50px;
+    .list_link
+    {
+        margin-bottom: 30px;
+    }
+    .filter-add
+    {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+table
+{
+    width: 100%;
+}
+ ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: transparent !important;
+}

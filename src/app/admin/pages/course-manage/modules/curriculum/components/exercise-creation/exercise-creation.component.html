@@ -1,0 +1,21 @@
+<div class="quiz-creation-wrapper">
+  <form>
+    <div class="title">{{titleCreation}}</div>
+    <div class="content">
+      <input type="text" placeholder="Tiêu đề" name="title" [(ngModel)] = "content.title"/>
+      <app-normal-editor name="description" [(ngModel)]="content.description"></app-normal-editor>
+      <input type="number" placeholder="Thời gian làm bài(phút)" name="timeForQuiz" [(ngModel)]="content.time_for_quiz_minutes"/>
+
+      <div class="btns-container" align="end">
+        <button
+          class="btn cancel-btn"
+          (click)="btnClickHandler(0)"
+          type="button"
+        >
+          Huỷ
+        </button>
+        <button class="btn save-btn" type="button" (click)="btnClickHandler(1)">Lưu</button>
+      </div>
+    </div>
+  </form>
+</div>

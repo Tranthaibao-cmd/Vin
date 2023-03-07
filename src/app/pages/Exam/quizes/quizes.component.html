@@ -1,0 +1,124 @@
+<div class="wrapper">
+  <div *ngIf="!this.contentLoaded">
+    <div class="text-center">
+      <ngx-skeleton-loader [theme]="{
+          width: '30%',
+          height: '30px',
+          'border-radius': '10px',
+          'animation-duration': '1s',
+          'background-color': '#6c757d'
+        }"></ngx-skeleton-loader>
+    </div>
+  </div>
+
+  <div class="text-center" *ngIf="this.Ob | async as v">
+    <h2 [innerHTML]="this.course_name"></h2>
+  </div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSourceChoiceExam">
+      <ng-container matColumnDef="Số thứ tự">
+        <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Trạng thái">
+        <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+        <td mat-cell *matCellDef="let element" [innerHTML]="
+            element.is_finished ? 'Đã hoàn thành' : 'Chưa hoàn thành'
+          "></td>
+      </ng-container>
+
+      <ng-container matColumnDef="Tên">
+        <th mat-header-cell *matHeaderCellDef>Tên</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Mô tả">
+        <th mat-header-cell *matHeaderCellDef>Mô tả</th>
+        <td mat-cell *matCellDef="let element" [innerHTML]="element.description | sanitizeHtml"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="Thời điểm làm bài">
+        <th mat-header-cell *matHeaderCellDef>Thời điểm mở</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.time_open * 1000 | date: "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Thời điểm kết thúc">
+        <th mat-header-cell *matHeaderCellDef>Thời điểm đóng</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.time_close * 1000 | date: "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Thời gian làm bài">
+        <th mat-header-cell *matHeaderCellDef>Thời gian làm bài</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.time_limit / 60 }} phút
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Hoạt động">
+        <th mat-header-cell *matHeaderCellDef>Hoạt động</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary" (click)="examTest(element.id, element.name)" [disabled]="this.disableBtnThi(element)">
+            <!-- {{now}} - {{element.time_open}} - {{element.time_close}} -->
+            <!-- element.time_open > this.now ||
+              element.time_close < this.now -->
+            Thi
+          </button>
+          <button mat-raised-button color="accent" (click)="ViewHistory(element.id)" [disabled]="this.disableBtnXemKetQua(element)">
+            Xem kết quả
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsOfChoiceExam"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsOfChoiceExam"></tr>
+    </table>
+
+    <mat-paginator #paginatorChoiceExam [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <!-- <hr /> -->
+  <!-- Thi lý thuyết  -->
+  <!-- <div class="text-center">
+    <h2>Thi thực hành</h2>
+  </div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="this.dataSourceCodingExam">
+      <ng-container matColumnDef="Số thứ tự">
+        <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Tên">
+        <th mat-header-cell *matHeaderCellDef>Tên</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Hoạt động">
+        <th mat-header-cell *matHeaderCellDef>Hoạt động</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary" (click)='StartCodingExam(element.name)'>Thi</button>
+          <button mat-raised-button color='warn' (click)='FinishCodingExam(element.name)'>Hoàn thành</button>
+          <button mat-raised-button color='accent' (click)='ViewCodingExamListHistory(element.name)'>Xem Kết Quả</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsOfCodingExam"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumnsOfCodingExam"
+      ></tr>
+    </table>
+
+    <mat-paginator
+      #paginatorCodingExam
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div> -->
+</div>

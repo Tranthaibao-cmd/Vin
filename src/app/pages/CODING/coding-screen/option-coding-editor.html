@@ -1,0 +1,13 @@
+<div class="dialog-content" style="width: 300px; display: flex; flex-direction: column;" [formGroup]="this.fg" >
+  <h1>Chọn ngôn ngữ:</h1>
+  <mat-radio-group aria-label="Select an option" style="display: flex; justify-content: space-between;" formControlName='language'>
+    <mat-radio-button  [value]='language' *ngFor="let language of list_language">{{language | titlecase}}</mat-radio-button>
+  </mat-radio-group>
+  <h1>Chọn theme:</h1>
+  <mat-radio-group aria-label="Select an option" style="display: flex; justify-content: space-between;" formControlName='theme'>
+    <mat-radio-button [value]='theme' *ngFor="let theme of list_theme">{{theme | titlecase}}</mat-radio-button>
+  </mat-radio-group>
+  <button mat-raised-button color="primary" (click)='chooseOption()'>Lưu</button>
+</div>
+
+

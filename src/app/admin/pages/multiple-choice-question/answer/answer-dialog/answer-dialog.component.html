@@ -1,0 +1,33 @@
+<form [formGroup]="fg">
+    <div style="display: flex; justify-content: space-between">
+        <h1 mat-dialog-title>Câu trả lời</h1>
+    </div>
+    <mat-dialog-content>
+        <div style="display: flex; flex-direction: column">
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Đáp án A</mat-label>
+                <input type="text" matInput formControlName="dap_an_A" placeholder="Đáp án A">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Đáp án B</mat-label>
+                <input type="text" matInput formControlName="dap_an_B" placeholder="Đáp án B">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Đáp án C</mat-label>
+                <input type="text" matInput formControlName="dap_an_C" placeholder="Đáp án C">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Đáp án D</mat-label>
+                <input type="text" matInput formControlName="dap_an_D" placeholder="Đáp án D">
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>  
+        <ng-template #update>
+            <button mat-raised-button color='primary' style="width: 100%;" (click)='addData()'>Lưu</button>
+        </ng-template>
+        <ng-template [ngIf]='this.data.is_edit' [ngIfElse]='update'>
+            <button mat-raised-button color='primary' style="width: 100%;" (click)='updateData()'>Cập nhật</button>
+        </ng-template>
+    </mat-dialog-actions>
+</form>

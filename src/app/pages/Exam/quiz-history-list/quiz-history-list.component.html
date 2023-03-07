@@ -1,0 +1,99 @@
+<div class="wrapper">
+  <div *ngIf="!this.contentLoaded">
+    <div class="text-center">
+      <ngx-skeleton-loader
+        [theme]="{
+          width: '30%',
+          height: '30px',
+          'border-radius': '10px',
+          'animation-duration': '1s',
+          'background-color': '#6c757d'
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+    
+    <ngx-skeleton-loader
+      
+      [theme]="{
+        width: '100%',
+        height: '50vh',
+        'border-radius': '10px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+    
+    
+  </div>
+
+  <div *ngIf="this.quizHistoryObservable | async as q">
+    <div class="text-center">
+      <h2 [innerHTML]="q | sanitizeHtml"></h2>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="this.dataSource">
+        <ng-container matColumnDef="Số thứ tự">
+          <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Tên">
+          <th mat-header-cell *matHeaderCellDef>Tên thí sinh</th>
+          <td mat-cell *matCellDef="let element">{{ element.user_name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Thời điểm bắt đầu làm bài">
+          <th mat-header-cell *matHeaderCellDef>Thời điểm bắt đầu</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.started_time * 1000 | date: "dd/MM/yyyy hh:mm:ss" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Thời điểm kết thúc">
+          <th mat-header-cell *matHeaderCellDef>Thời điểm kết thúc</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.submitted_time * 1000 | date: "dd/MM/yyyy hh:mm:ss" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Hoạt động">
+          <th mat-header-cell *matHeaderCellDef>Hoạt động</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="ViewDetails(element.oid)"
+            >
+              Chi tiết
+            </button>
+
+            <button
+              *ngIf="this.userValue.role < 5"
+              style="margin-left: 10px"
+              mat-raised-button
+              color="warn"
+              (click)="deleteQuiz(element.oid)"
+            >
+              Xóa
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+        #paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+  </div>
+
+  <div style="margin-top: 50px" *ngIf="this.userValue.role < 5">
+    <p>
+      <span style="color: red">Note:</span> Chỉ có admin mới có thể xóa bài thi
+    </p>
+  </div>
+</div>

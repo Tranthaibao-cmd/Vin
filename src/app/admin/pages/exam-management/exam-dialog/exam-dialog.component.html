@@ -1,0 +1,38 @@
+<div class="wrapper">
+    <div class="text-center" style="font-size: 18px; font-weight: bold">{{action}} Kỳ Thi</div>
+    <hr>
+    <form class="form" [formGroup]="fg">
+        <mat-label>Loại bài thi</mat-label>
+            <!-- <mat-select formControlName="loai_bai_thi">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.ten" (click)='changeOption(option.id)'>
+                    {{option.ten}}
+                </mat-option>
+            </mat-select> -->
+        <br>
+        <mat-radio-group formControlName="loai_bai_thi">
+            <mat-radio-button value="Trắc Nghiệm">Trắc Nghiệm</mat-radio-button>
+            <mat-radio-button value="Coding">Coding</mat-radio-button>
+            <mat-radio-button value="Học máy">Học máy</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Tên bài thi</mat-label>
+            <input required matInput formControlName="ten_bai_thi">
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Mô tả</mat-label>
+            <textarea matInput formControlName="mo_ta"></textarea>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Thời gian bắt đầu</mat-label>
+            <input required matInput type="date" formControlName="thoi_gian_bat_dau">
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Thời gian kết thúc</mat-label>
+            <input required matInput type="date" formControlName="thoi_gian_ket_thuc">
+        </mat-form-field>
+    </form>
+</div>
+<div class="text-center">
+    <button mat-button (click)="doAction()" mat-flat-button color="primary">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Hủy Bỏ</button>
+</div>

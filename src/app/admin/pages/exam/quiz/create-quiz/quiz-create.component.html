@@ -1,0 +1,104 @@
+<div class="container">
+  <div style="display: flex; justify-content: space-between">
+    <h1 mat-dialog-title>Thông tin câu hỏi</h1>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <form action="" class="create-question" [formGroup]="this.fg">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Tên câu hỏi</mat-label>
+        <textarea
+          matInput
+          placeholder="Nhập tên câu hỏi..."
+          formControlName="ten_cau_hoi"
+        ></textarea>
+        <mat-error *ngIf="this.checkError(this.fg, 'ten_cau_hoi', 'required')"
+          >Trường này bắt buộc</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Mô tả</mat-label>
+        <textarea
+          matInput
+          placeholder="Nhập tên câu hỏi..."
+          formControlName="mo_ta"
+        ></textarea>
+        <mat-error *ngIf="this.checkError(this.fg, 'mo_ta', 'required')"
+          >Trường này bắt buộc</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Thời gian thực thi</mat-label>
+        <input
+          type="number"
+          matInput
+          placeholder="Nhập thời gian..."
+          formControlName="gioi_han_thuc_thi"
+          onkeydown="if(event.key==='.'){event.preventDefault();}"
+          onpaste="let pasteData = event.clipboardData.getData('text'); if(pasteData){pasteData.replace(/[^0-9]*/g,'');} "
+        />
+        <mat-error
+          *ngIf="this.checkError(this.fg, 'gioi_han_thuc_thi', 'required')"
+          >Trường này bắt buộc</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Tên hàm</mat-label>
+        <input matInput placeholder="Nhập tên hàm" formControlName="ten_ham" />
+        <mat-error *ngIf="this.checkError(this.fg, 'ten_ham', 'required')"
+          >Trường này bắt buộc</mat-error
+        >
+        <mat-error *ngIf="this.checkError(this.fg, 'ten_ham', 'pattern')"
+          >Sai quy tắc tên biến(không chứa kí tự đặc biệt:@,#,%... , không chứa dấu cách, không để số 0 ở đầu )</mat-error
+        >
+      </mat-form-field>
+      <div style="margin-bottom: 20px" >
+        <app-dau-vao-table [data]='this.dv' #dauvao></app-dau-vao-table>
+      </div>
+
+      <div class="form-output" [formGroup]="this.fg_dau_ra">
+        <label for="" style="font-size: 20px; font-weight: 500">Đầu ra</label>
+        <div
+          class="output-item"
+          style="display: flex; justify-content: space-between"
+        >
+
+          <mat-form-field appearance="fill" class="type-data">
+            <mat-label>Kiểu dữ liệu </mat-label>
+            <mat-select formControlName="kieu_du_lieu">
+              <mat-option *ngFor="let o of options" [value]="o">{{
+                o | titlecase
+              }}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="
+                this.checkError(this.fg_dau_ra, 'kieu_du_lieu', 'required')
+              "
+              >Trường này bắt buộc</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <ng-template #add>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="addCauHoi()"
+        [disabled]="this.fg.invalid || this.fg_dau_ra.invalid"
+      >
+        Thêm câu hỏi
+      </button>
+    </ng-template>
+    <ng-template [ngIf]="this.data.is_update" [ngIfElse]='add'>
+      <button mat-raised-button color="primary" (click)="editCauHoi()">
+        Cập nhật
+      </button>
+    </ng-template>
+  </mat-dialog-actions>
+</div>
+<!-- modal -->

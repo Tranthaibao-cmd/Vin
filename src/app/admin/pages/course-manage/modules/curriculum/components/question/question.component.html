@@ -1,0 +1,41 @@
+<div class="question-wrapper">
+  <div class="question-type">
+    <label for="questionType">Chọn loại câu hỏi:</label>
+    <select name="questionType" [(ngModel)]="question.question_type">
+      <option value="radio">Một đáp án</option>
+      <option value="checkbox">Nhiều đáp án</option>
+    </select>
+  </div>
+  <app-normal-editor placeholder="Nhập tiêu đề câu hỏi" [(ngModel)]="question.name"></app-normal-editor>
+
+  <!-- <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="radio-group"
+  >
+    <mat-radio-button
+      class="radio-button"
+      *ngFor="let answer of answers;trackBy:trackByFn "
+      [value] = 'answer'
+    >
+     <app-answer-option [answer]="answer"></app-answer-option>
+    </mat-radio-button>
+  </mat-radio-group> -->
+  <ng-container *ngFor="let answer of question.answers; trackBy: trackByFn">
+    <div class="answer">
+      <input
+        [type]="question.question_type"
+        style="width: 24px; height: 24px; margin-right: 20px"
+        [name]="question.id"
+        [checked]="this.question.answers_right_id.includes(answer.id)"
+        (click)="saveRightAnswer(answer.id)"
+      />
+      <app-answer-option
+        [answer]="answer"
+      ></app-answer-option>
+
+      <i class="material-icons" (click)="removeAnswer(answer.id)">delete</i>
+    </div>
+  </ng-container>
+
+
+</div>

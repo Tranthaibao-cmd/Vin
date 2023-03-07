@@ -1,0 +1,35 @@
+<div class="wrapper-my-coding-exam">
+  <div *ngIf="this.is_mode_of_view_my_exam">
+    <div *ngIf="this.myCodingExamHistory | async as data">
+      <div class="text-center">
+        <h2>{{ data.quiz_name }}</h2>
+      </div>
+      <div class="text-left">
+        <!-- <button mat-raised-button color="primary" (click)='this.onGetSolution(data.quiz_id)'>Xem lời giải</button> -->
+      </div>
+      <div class="content">
+        <div
+          
+          [innerHTML]="data.my_answers | sanitizeHtml"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="!this.is_mode_of_view_my_exam">
+    <div *ngIf="this.myCodingExamHistory | async as data">
+      <div class="text-center">
+        <h2>{{ data.quiz_name }}</h2>
+      </div>
+      <div class="text-left">
+        <button mat-raised-button color="primary" (click)='onGetCodingExamHistory(this.object_id)'>Bài của tôi</button>
+      </div>
+      <div class="content">
+        <div
+          
+          [innerHTML]="data.solution | sanitizeHtml"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div> -->

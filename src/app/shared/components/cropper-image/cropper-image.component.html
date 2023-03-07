@@ -1,0 +1,48 @@
+<div class="cropper-container">
+  <div class="cropper">
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [containWithinAspectRatio]="containWithinAspectRatio"
+      [aspectRatio]="4 / 3"
+      [resizeToWidth]="256"
+      [cropperMinWidth]="128"
+      [onlyScaleDown]="true"
+      [roundCropper]="false"
+      [canvasRotation]="canvasRotation"
+      [transform]="transform"
+      [alignImage]="'left'"
+      [style.display]="showCropper ? null : 'none'"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady($event)"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+    <img [src]="srcImg" alt="" *ngIf="!showCropper" class="img-response" />
+  </div>
+  <div class="input-image">
+    <p>
+      Tải lên hình ảnh khóa học của bạn tại đây. Nó phải đáp ứng các tiêu chuẩn
+      chất lượng hình ảnh khóa học của chúng tôi để được chấp nhận. Nguyên tắc
+      quan trọng: 750x422 pixel; .jpg, .jpeg,. gif hoặc .png. không có văn bản
+      trên hình ảnh.
+    </p>
+    <div>
+      <label for="upload-photo">
+        <span class="upload-photo-box">
+          <span class="upload-photo-text"> {{filename}} </span>
+        </span>
+        <span class="upload-photo-btn">{{actionName}}</span>
+
+      </label>
+      <input
+        type="file"
+        name="photo"
+        id="upload-photo"
+        (change)="fileChangeEvent($event)"
+      />
+    </div>
+    <button class="btn save-btn" style="margin-top:20px;width:100px;" (click)="saveImg()" [disabled]="!croppedImage">Lưu ảnh</button>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+.entrance-exam-wrapper {
+    background-color: #2b3b52;
+    min-height: 100%;
+  .container {
+    height: 100%;
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    font-family: monospace;
+    color: aliceblue;
+    .content {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      width: 45%;
+      margin: 40px auto 40px auto;
+      h1 {
+        padding: 20px 0px 20px 0px;
+        text-align: center;
+        animation: type 2s steps(37);
+        overflow: hidden;
+        white-space: nowrap;
+        font-family: monospace;
+      }
+    }
+    .exam {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      span {
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+      width: 45%;
+      margin: 0px auto 0px auto;
+      .exam-list {
+        color:  #007bff;
+        flex: 1;
+        padding-left: 0px;
+        text-decoration: none;
+        &:hover
+        {
+            cursor: pointer;
+            color: #0056b3;
+        }
+        ul {
+          padding-left: 0px;
+        }
+        .exam-item {
+          text-decoration: none;
+          height: 50px;
+          background-color: aliceblue;
+          border: 3px solid black;
+          line-height: 50px;
+          list-style: none;
+          font-size: 20px;
+          padding-left: 10px;
+          display: flex;
+          align-items: center;
+          animation-name: list;
+          animation-duration: 3s;
+          margin-bottom: 4px;
+        }
+        .exam-text {
+          animation: fadeIn ease-in 3s;
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+}
+@keyframes list {
+  from {
+    width: 10%;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes type {
+  0% {
+    width: 0ch;
+  }
+  100% {
+    width: 37ch;
+  }
+}

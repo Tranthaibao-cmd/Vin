@@ -1,0 +1,35 @@
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2">Danh sách kết quả bài thi</div>
+    <div class="page__content shadow p-3 position-relative">
+        <div class="text-left" style="font-size: medium;">
+            <mat-form-field appearance="fill">
+                <mat-label>Tìm kiếm</mat-label>
+                <input matInput (keyup)="Filter($event)">
+            </mat-form-field>
+        </div>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="this.dataSource">
+                <ng-container matColumnDef="Số thứ tự">
+                    <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+                    <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+                </ng-container>
+               
+                <ng-container matColumnDef="content_name">
+                    <th mat-header-cell *matHeaderCellDef>Tên bài thi</th>
+                    <td mat-cell *matCellDef="let element">{{element.content_name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="create_at">
+                    <th mat-header-cell *matHeaderCellDef>Thời gian hoàn thành</th>
+                    <td mat-cell *matCellDef="let element">{{element.created_at_seconds_epoch_time*1000 | date}}</td>
+                </ng-container>
+                <ng-container matColumnDef="score">
+                    <th mat-header-cell *matHeaderCellDef>Điểm</th>
+                    <td mat-cell *matCellDef="let element">{{element.score}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>

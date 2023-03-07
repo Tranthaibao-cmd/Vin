@@ -1,0 +1,46 @@
+
+<app-inner-layout>
+  <span title>Privilege</span>
+  <div content>
+    
+    <div style="font-size: medium;">
+        <mat-form-field appearance="fill">
+            <mat-label>Tìm kiếm</mat-label>
+            <input matInput (keyup)="Filter($event)">
+        </mat-form-field>
+        <button mat-icon-button color="primary" style="float: right;" (click)="openDialog('Thêm', {})">
+            <mat-icon style="font-size: 45px; right: 8px; position: relative;">add_box</mat-icon>
+        </button>
+    </div>
+  
+    <table mat-table [dataSource] = "this.dataSource">
+      <ng-container matColumnDef="số thứ tự">
+        <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+      <ng-container matColumnDef="Tên">
+        <th mat-header-cell *matHeaderCellDef>Tên</th>
+        <td mat-cell *matCellDef="let element;">{{ element.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="Hành động">
+        <th mat-header-cell *matHeaderCellDef>Hành động</th>
+        <td mat-cell *matCellDef="let element;">{{ element.action }}</td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Hoạt động</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="openDialog('Cập Nhật', element)">
+                <mat-icon>edit</mat-icon>
+            </button> |  
+            <button mat-icon-button color="warn" (click)="deletePrivilege(element._id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td> 
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</app-inner-layout>

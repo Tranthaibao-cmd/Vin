@@ -1,0 +1,22 @@
+<div class="testcase-creation-wrapper">
+  <div class="input-container" *ngFor="let param of testcaseCopy.inputs">
+    <span>{{param.name}}({{param.datatype}})</span>
+    <input type="text" [(ngModel)]="param.value">
+  </div>
+  <div class="input-container">
+    <span>Gía trị đầu ra({{testcase.output.datatype}})</span>
+    <input type="text" [(ngModel)]="testcaseCopy.output.value">
+  </div>
+  <div class="input-container lock">
+    <span>Ẩn</span>
+    <input type="checkbox" [(ngModel)]="testcaseCopy.lock">
+  </div>
+  <!-- <div class="input-container">
+    <span>Khóa</span>
+    <input type="radio">
+  </div> -->
+  <div style="width: 100%;" align="end">
+    <button class="btn cancel-btn" type="button" (click)="btnClickEvent(0)" >Hủy</button>
+    <button class="btn save-btn" type="button" (click)="btnClickEvent(1)">Lưu</button>
+  </div>
+</div>

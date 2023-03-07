@@ -1,0 +1,39 @@
+.wrapper-my-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .wrapper-content {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 12% 76% 12%;
+
+    .content
+    {
+      margin-bottom: 50px;
+    }
+  }
+  app-layout-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
+    z-index: 10;
+    transition: top 0.5s;
+  }
+
+  .empty-div {
+    height: 70px;
+    background-color: transparent;
+  }
+
+  app-layout-footer {
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
+    margin-top: auto;
+    z-index: 10;
+  }
+ 
+  
+}
+
+

@@ -1,0 +1,65 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3 mt-2">Quản lý nội dung</div>
+  <div class="page__content shadow p-3 position-relative">
+    <mat-expansion-panel #expanded>
+      <mat-expansion-panel-header>
+        <span class="mr-1"><mat-icon>add</mat-icon></span
+        >Thêm buổi học
+      </mat-expansion-panel-header>
+
+      <ng-template matExpansionPanelContent>
+        <app-topic (topicChange)="addOrEditTopic($event)"></app-topic>
+      </ng-template>
+    </mat-expansion-panel>
+    <div class="table" *ngIf="topic_list_observable | async as topic_list">
+      <div
+        *ngFor="let topic of topic_list; index as inx"
+        class="topic-item"
+        style="position: relative"
+      >
+        <h3>{{ topic.order }}.{{ topic.tieu_de }}</h3>
+        <ul class="desc-container" style="list-style-type: none">
+          <li [innerHTML]="topic.mo_ta"></li>
+        </ul>
+        <div class="desc-container no-style ml-3">
+          <div *ngFor="let f of topic.file">
+            <div>
+              <span class="mb-2"><h2 [innerHTML]="f.des"></h2></span>
+            </div>
+            <div class="ml-2">
+              <mat-icon mat-raised-button [class]="iconColor[f.icon.value]">{{
+                f.icon.value
+              }}</mat-icon
+              ><span class="md-2"
+                ><a [href]="f.link">{{ f.display_name }}</a></span
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            display: flex;
+          "
+        >
+          <mat-icon color="primary" style="margin-right: 5px" (click)="editTopic(topic._id)"
+            >edit</mat-icon
+          >
+          <mat-icon color="warn" (click)="deleteTopic(topic._id)">delete</mat-icon>
+        </div>
+        <ng-template [ngIf]="this.topic_id_selected == topic._id">
+          <div [id]="topic._id">
+            <app-topic
+              action="edit"
+              [form-attributes]="topic.form_attributes"
+              (topicChange)="addOrEditTopic($event)"
+            ></app-topic>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

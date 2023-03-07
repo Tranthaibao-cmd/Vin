@@ -1,0 +1,46 @@
+.container{
+    border-left: 1px solid gray;
+    border-right:  1px solid gray;
+    height: 100%;
+}
+
+  .create-question{
+      display: flex;
+      flex-direction: column;
+  }
+   .form-output{
+      display: flex;
+      flex-direction: column;
+  }
+  .output-item{
+      display: flex;
+      .example-full-width{
+          flex: 1;
+          margin-right: 15px;
+          text-overflow: ellipsis;
+      }
+      .type-data{
+          flex: 1;
+          margin-top: 15px;
+          margin-left: 15px;
+      }
+  }
+
+  //table
+  table {
+    width: 100%;
+    box-shadow: none;
+  }
+  .form-input{
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+  }
+  .modal-body{
+      display: flex;
+      flex-direction: column;
+  }
+
+ ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: transparent !important;
+}

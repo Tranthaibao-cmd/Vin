@@ -1,0 +1,58 @@
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2"  style="font-size: 18px; font-weight: 500">Danh sách câu trả lời</div>
+    <div class="page__content shadow p-3 position-relative">
+        <div class="table">
+            <div class="text-right" style="font-size: medium;">
+                <button mat-icon-button color="primary" (click)="addCauTraLoi()">
+                    <mat-icon style="font-size: 45px; position: relative; right: 15px">add_box</mat-icon>
+                </button>
+            </div>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource] = "this.dataSource">
+                    <ng-container matColumnDef="Số thứ tự">
+                        <th mat-header-cell *matHeaderCellDef >STT</th>
+                        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="A">
+                        <th mat-header-cell *matHeaderCellDef>Đáp án A</th>
+                        <td mat-cell *matCellDef="let element">{{ element.dap_an_A }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="B">
+                        <th mat-header-cell *matHeaderCellDef>Đáp án B</th>
+                        <td mat-cell *matCellDef="let element">{{ element.dap_an_B }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="C">
+                        <th mat-header-cell *matHeaderCellDef>Đáp án C</th>
+                        <td mat-cell *matCellDef="let element">{{ element.dap_an_C }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="D">
+                        <th mat-header-cell *matHeaderCellDef>Đáp án D</th>
+                        <td mat-cell *matCellDef="let element">{{ element.dap_an_D }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="hoạt động">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center">
+                          Hoạt động
+                        </th>
+                        <td mat-cell *matCellDef="let element; let inx = index">
+                          
+                          <button mat-icon-button color="primary" (click)="update(element, inx)">
+                            <mat-icon>edit</mat-icon>
+                          </button>
+                          <button mat-icon-button color="warn" (click)="Delete(inx)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </td>
+                      </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+                <ng-container *ngIf='this.data.is_dialog'>
+                    <div style="display: flex;justify-content: space-between;margin-top: 20px;">
+                      <button [mat-dialog-close]='{ data:this.DATA, btn:"close", is_changed:this.is_changed }' mat-raised-button>Đóng</button>
+                      <button mat-raised-button color='primary' cdkFocusInitial (click)='Save()'>Lưu</button>
+                    </div>
+                  </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

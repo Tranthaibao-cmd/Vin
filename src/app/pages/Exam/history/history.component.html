@@ -1,0 +1,354 @@
+<div class="wrapper" id="wrapper">
+  <div class="vl-left"></div>
+  <div class="vl-right"></div>
+  <a id="button" (click)="scrollUpToTop()"></a>
+
+  <div class="note" style="display: block">
+    <h3>Chú thích:</h3>
+    <div>
+      <div style="display: flex; padding-bottom: 1px">
+        <div class="question" style="background-color: #ff4081"></div>
+        <p>Câu sai hoặc chưa hoàn thành</p>
+      </div>
+
+      <div style="display: flex">
+        <div class="question" style="background-color: #2ecc2e"></div>
+        <p>Câu đúng</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!this.contentLoaded">
+    <div class="exam-result-infor">
+      <div>
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '70%',
+            height: '20px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+      <div>
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '30%',
+            height: '20px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+      <div>
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '50%',
+            height: '20px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+      <div>
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '70%',
+            height: '20px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+      <div>
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '90%',
+            height: '20px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+      <div>
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '92%',
+            height: '20px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+      <div>
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '70%',
+            height: '20px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+    </div>
+
+    <div class="question-list-skeleton">
+      <ngx-skeleton-loader
+        appearance="circle"
+        count="50"
+        [theme]="{
+          width: '30px',
+          height: '30px',
+          'animation-duration': '1s',
+          'background-color': '#6c757d'
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+
+    <div class="text-center">
+      <ngx-skeleton-loader
+        [theme]="{
+          width: '40%',
+          height: '30px',
+          'animation-duration': '1s',
+          'background-color': '#6c757d'
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+    <ngx-skeleton-loader
+      [theme]="{
+        width: '100%',
+        height: '5px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+    <ngx-skeleton-loader
+      [theme]="{
+        width: '20%',
+        height: '20px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+    <ngx-skeleton-loader
+      [theme]="{
+        width: '100%',
+        height: '25px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+    <ngx-skeleton-loader
+      count="4"
+      [theme]="{
+        width: '60%',
+        height: '20px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+
+    <ngx-skeleton-loader
+      [theme]="{
+        width: '100%',
+        height: '5px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+    <ngx-skeleton-loader
+      [theme]="{
+        width: '20%',
+        height: '20px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+    <ngx-skeleton-loader
+      [theme]="{
+        width: '100%',
+        height: '25px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+    <ngx-skeleton-loader
+      count="4"
+      [theme]="{
+        width: '60%',
+        height: '20px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+  </div>
+
+  <div *ngIf="this.quiz_history | async as q">
+    <div class="exam-result-infor">
+      <div>
+        <p>Tên thí sinh : {{ q.user_name }}</p>
+      </div>
+      <div>
+        <p>Số điểm : {{ q.score }}</p>
+      </div>
+      <div>
+        <p>Số câu đúng : {{ q.question_correct }}/{{ q.question_total }}</p>
+      </div>
+      <div>
+        <p>Tổng thời gian làm bài : {{ q.quiz.time_limit / 60 }} phút</p>
+      </div>
+      <div>
+        <p>
+          Thời điểm làm bài :
+          {{ q.started_time * 1000 | date: "dd/MM/yyyy hh:mm a" }}
+        </p>
+      </div>
+      <div>
+        <p>
+          Thời điểm kết thúc :
+          {{ q.submitted_time * 1000 | date: "dd/MM/yyyy hh:mm a" }}
+        </p>
+      </div>
+      <div>
+        <p>
+          Thời gian làm bài :
+          {{ (q.submitted_time - q.started_time) / 60 | number }} phút
+        </p>
+      </div>
+    </div>
+
+    <div class="question-list">
+      <div
+        class="question"
+        *ngFor="
+          let question of q.quiz.questions;
+          let i = index;
+          trackBy: trackByFunction
+        "
+        (click)="ScrollToSpecificSentence(question.id)"
+        id="question_{{ question.id }}"
+        [ngStyle]="{
+          'background-color': question.is_right ? '#2ecc2e' : '#ff4081'
+        }"
+      >
+        <p>{{ i + 1 }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3
+          class="title"
+          [innerHTML]="q.quiz.name | uppercase | sanitizeHtml"
+        ></h3>
+      </div>
+
+      <div class="col-md-6 text-sm-right"></div>
+    </div>
+    <div id="quiz">
+      <h2
+        class="text-sm-center"
+        [innerHTML]="q.quiz.description | sanitizeHtml"
+      ></h2>
+      <hr />
+
+      <div class="question" style="text-align: justify">
+        <div
+          *ngFor="
+            let question of q.quiz.questions;
+            let i = index;
+            let is_last = last;
+            trackBy: trackByFunction
+          "
+          [ngStyle]="{ 'border-bottom': is_last ? 'None' : '' }"
+        >
+          <div
+            class="badge badge-info"
+            style="margin-bottom: 10px; font-size: 0.8rem"
+            id="{{ question.id }}"
+          >
+            Câu hỏi {{ i + 1 }} / {{ this.total_questions }}
+          </div>
+          <div class="text-editor">
+            <div class="header">
+              <div class="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="currentColor"
+                  class="bi bi-question-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                  />
+                  <path
+                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
+                  />
+                </svg>
+              </div>
+              <div
+                [innerHTML]="question.name | sanitizeHtml"
+                style="font-size: 1.02rem; text-align: justify"
+              ></div>
+            </div>
+          </div>
+
+          <mat-radio-group
+            *ngIf="question.question_type === 1"
+            class="radio-group"
+          >
+            <mat-radio-button
+              *ngFor="let option of question.options; trackBy: trackByFunction"
+              [value]="option.id"
+              [checked]="option.selected"
+            >
+              <div
+                style="text-align: justify"
+                [innerHTML]="option.name | sanitizeHtml"
+                [ngStyle]="{
+                  color: option.is_answer
+                    ? '#2ecc2e'
+                    : option.selected
+                    ? '#ff4081'
+                    : '',
+                  'border-bottom': option.is_answer
+                    ? '1px solid #2ecc2e'
+                    : option.selected
+                    ? '1px solid #ff4081'
+                    : ''
+                }"
+              ></div>
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <section class="radio-group" *ngIf="question.question_type === 0">
+            <mat-checkbox
+              *ngFor="let option of question.options; trackBy: trackByFunction"
+              [(ngModel)]="option.selected"
+            >
+              <div
+                [innerHTML]="option.name | sanitizeHtml"
+                [ngStyle]="{
+                  color: option.is_answer
+                    ? '#2ecc2e'
+                    : option.selected
+                    ? '#ff4081'
+                    : '',
+                  'border-bottom': option.is_answer
+                    ? '1px solid #2ecc2e'
+                    : option.selected
+                    ? '1px solid #ff4081'
+                    : ''
+                }"
+              ></div>
+            </mat-checkbox>
+          </section>
+        </div>
+
+        <hr />
+      </div>
+    </div>
+  </div>
+</div>

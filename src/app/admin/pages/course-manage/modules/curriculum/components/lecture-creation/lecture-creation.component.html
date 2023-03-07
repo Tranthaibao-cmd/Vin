@@ -1,0 +1,22 @@
+<div class="lecture-creation-wrapper">
+  <div class="form">
+    <div class="input-container">
+      <span>Bài học mới :</span>
+      <div>
+        <input
+          type="text"
+          placeholder="Nhập tiêu đề ..."
+          [(ngModel)]="content.title"
+        />
+      </div>
+    </div>
+    <div class="btns-container" align="end">
+      <button class="btn cancel-btn" (click)="btnClickHandler(0)" type="button">
+        Huỷ
+      </button>
+      <button class="btn save-btn" (click)="btnClickHandler(1)" type="button">
+        Lưu
+      </button>
+    </div>
+  </div>
+</div>

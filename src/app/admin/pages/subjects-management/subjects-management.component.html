@@ -1,0 +1,58 @@
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2">Danh sách Khóa Học</div>
+    <div class="page__content shadow p-3 position-relative">
+    <div class="text-left" style="font-size: medium; margin-bottom: 15px;">
+        <mat-form-field appearance="fill">
+            <mat-label>Tìm kiếm</mat-label>
+            <input matInput (keyup)="Filter($event)">
+        </mat-form-field>
+        <button mat-icon-button color="primary" style="float: right;" (click)="openDialog('Thêm', {})">
+            <mat-icon style="font-size: 45px; right: 8px; position: relative;">add_box</mat-icon>
+        </button>
+    </div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource] = "this.dataSource">
+            <ng-container matColumnDef="Số thứ tự">
+                <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+                <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Tên môn học">
+                <th mat-header-cell *matHeaderCellDef>Tên Khóa Học</th> 
+                <td mat-cell *matCellDef="let element">
+                    {{ element.ten_mon_hoc }}</td>
+            </ng-container>
+            <!-- [routerLink]="{{iteam/element.id}}"  -->
+            <ng-container matColumnDef="Ảnh đại diện">
+                <th mat-header-cell *matHeaderCellDef>Ảnh đại diện</th>
+                <td mat-cell *matCellDef="let element">
+                    <img width="80px" height="80px" src ="{{ element.anh_dai_dien }}">
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Mô tả">
+                <th mat-header-cell *matHeaderCellDef>Mô tả</th>
+                <td mat-cell *matCellDef="let element">{{ element.mo_ta }}</td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Hoạt động</th>
+                <td mat-cell *matCellDef="let element"> 
+                    <button mat-icon-button color="primary" (click)="quiz(element._id)">
+                        <mat-icon>question_answer</mat-icon>
+                    </button> | 
+                    <button mat-icon-button color="accent" (click)=(option(element._id))>
+                        <mat-icon>class</mat-icon>
+                    </button> |
+                    <button mat-icon-button color="primary" (click)="openDialog('Cập Nhật', element)">
+                        <mat-icon>edit</mat-icon>
+                    </button> |  
+                    <button mat-icon-button color="warn" (click)="deleteSubjectData(element._id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td> 
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
+

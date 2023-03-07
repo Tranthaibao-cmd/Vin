@@ -1,0 +1,71 @@
+.content-wrapper {
+
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+
+  .title,
+  .title-left,
+  .title-right,
+  .action {
+    display: flex;
+
+
+  }
+
+  .title {
+    padding-left: 10px;
+    height: 65px;
+    width: 100%;
+
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    .title-left,
+    .title-right {
+      line-height: 65px;
+    }
+
+    .title-left {
+      .action {
+        display: none;
+      }
+    }
+
+    .content-name {
+      font-size: 20px;
+
+    }
+
+    i {
+      font-size: 20px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:hover {
+      .title-left {
+        .action {
+
+          display: flex;
+
+        }
+      }
+    }
+  }
+
+  .content {
+    padding: 20px;
+
+
+   }
+
+
+
+
+
+
+
+}
+.edit-temp{
+  width: 100%;
+}

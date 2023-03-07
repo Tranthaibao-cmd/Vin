@@ -1,0 +1,153 @@
+<div class="header-my-layout">
+  <a routerLink="/">
+    <img src="../../../assets/common-img/logo.png" alt="logo" class="img-response" height="66px" />
+  </a>
+  <div class="search">
+    <div class="search-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+        viewBox="0 0 16 16">
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+      </svg>
+    </div>
+    <div>
+      <input placeholder="Tìm kiếm ... " type="text" />
+    </div>
+  </div>
+  <div>
+    <a class="a-blue" href="" style="font-weight: bolder; text-decoration: none">Hệ thống kiểm tra đánh giá AI</a>
+  </div>
+
+  <!-- <div>
+        <button class="btn btn-sign-in" style="border: 2px solid #0d4579;background-color: transparent;">Đăng Ký</button>
+    </div> -->
+  <ng-template #login>
+    <div>
+      <button class="btn btn-log-in" style="color: #fff; background-color: #0d4579" (click)="redirectToLogin()">
+        Đăng Nhập
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template [ngIf]="this.user" [ngIfElse]="login">
+    <div style="display: flex; align-items: flex-end">
+      <div class="user">
+        <div class="logo">
+          <ng-container [ngTemplateOutlet]="this.user.login_type == 'facebook_account'?img:icon"
+            [ngTemplateOutletContext]="{user:this.user,height:30}">
+
+          </ng-container>
+        </div>
+
+        <div class="user-name">
+          {{ this.user.first_name }}
+        </div>
+      </div>
+      <div class="notification">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+          class="bi bi-bell-fill notification-icon" viewBox="0 0 16 16">
+          <path
+            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+        </svg>
+      </div>
+      <div class="infor" *ngIf="this.user !== null" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+          class="bi bi-caret-down-fill infor-icon" viewBox="0 0 16 16">
+          <path
+            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+        </svg>
+        <div class="dropdown-menu dropdown-menu-header" aria-labelledby="dropdownMenuButton">
+          <div style="margin: 0 10px;">
+            <a>
+              <div>
+                <div class="d-flex flex-row">
+                  <ng-container [ngTemplateOutlet]="this.user.account_type == 'facebook_account'?img:icon"
+                    [ngTemplateOutletContext]="{user:this.user,height:50}">
+
+                  </ng-container>
+                  <div class="d-flex flex-column justify-content-between">
+                    <div style="font-size: large;">{{this.user.first_name+" " +this.user.last_name}} </div>
+                    <div style="font-size: 14px;font-style: italic;">Xem chi tiết trang cá nhân</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <hr>
+            <a>
+              <div class="d-flex flex-row align-items-center">
+                <div class="dropdown-menu-item-wrapper d-flex align-items-center justify-content-center">
+                  <div class="dropdown-menu-item"
+                    style="background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/cJjU8snwfdv.png);"></div>
+                </div>
+                <div>Đánh giá ý kiến</div>
+              </div>
+            </a>
+            <hr>
+            <div class="d-flex flex-column justify-content-between">
+
+              <ng-container *ngFor="let op of this.options">
+                <a [routerLink]="op.link" *ngIf="this.user.role <= op.role" style="margin-bottom: 10px;">
+
+
+
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="dropdown-menu-item-wrapper d-flex align-items-center justify-content-center">
+
+                     <span [innerHTML]="op.icon | sanitizeHtml"></span>
+                    </div>
+
+                    <div>
+                      {{op.name}}
+                    </div>
+
+                  </div>
+
+
+                </a>
+              </ng-container>
+
+              <a (click)="logOut()">
+
+
+                <div class="d-flex flex-row align-items-center">
+                  <div class="dropdown-menu-item-wrapper d-flex align-items-center justify-content-center">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd"
+                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                      <path fill-rule="evenodd"
+                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                    </svg>
+                  </div>
+
+                  <div>
+                    Đăng xuất
+                  </div>
+
+                </div>
+
+              </a>
+
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- templates -->
+<ng-template #icon let-height='height'>
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="22" fill="currentColor" class="bi bi-person-fill"
+    viewBox="0 0 16 16">
+    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+  </svg>
+</ng-template>
+<ng-template #img let-user='user' let-height=height>
+  <img height="{{height}}" style="border-radius: 50%;" [src]="user.picture.data.url" alt="">
+</ng-template>

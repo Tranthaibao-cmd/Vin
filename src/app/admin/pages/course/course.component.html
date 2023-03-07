@@ -1,0 +1,86 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between" [formGroup]="form" (ngSubmit)="filter()">
+    <mat-form-field appearance="outline">
+      <mat-label>Thể loại</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let cate of categories" [value]="cate.name">
+          {{cate.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Tên khóa học</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Sắp xếp</mat-label>
+      <mat-select formControlName="sort">
+        <mat-option *ngFor="let s of sort" [value]="s.value">
+          {{s.text}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div style="margin: 0.25em 0; padding-bottom: 1.34375em;">
+      <button mat-stroked-button (click)="filter()" style="height: 100%">
+        <mat-icon>filter_alt</mat-icon>Lọc
+      </button>
+    </div>
+  </div>
+  <h1><b>Danh sách khóa học</b></h1>
+  <div class="list-course">
+    <div *ngIf="courses?.length > 0; else noRecord" class="row">
+      <div *ngFor="let course of courses" class="col-3">
+        <div class="course-container">
+          <div class="course-content">
+            <div class="d-flex flex-column" (click)="goToDetail(course.id)">
+              <img src="{{ link }}/{{ course.img }}" alt="" class="img-response" />
+              <span class="course-name">{{ course.title }}</span>
+              <span class="teacher-name">{{ course.knowleages_will_learn }}</span>
+            </div>
+            <div class="star">
+              <div>
+                <span class="star-number">5</span>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+              </div>
+              <span style="font-weight: bold;">{{ course.price|number:'1.0-0'}} VND</span>
+            </div>
+            <div class="course-box">
+              <div class="course-infor">
+                <span class="course-name"> {{ course.title }}</span>
+                <span class="course-des" [innerHTML]="course.description"></span>
+                <span class="course-des"> </span>
+                <span class="course-des">
+                  Ngôn ngữ:
+                  {{ course.teaching_language }}</span>
+                <div class="tool-btns">
+                  <button mat-flat-button class="add-card" color="#106ba3" (click)="addToCart(course)">
+                    Thêm vào giỏ
+                  </button>
+                  <div class="favorite-btn">
+                    <ng-template [ngIf]="like" [ngIfElse]="notLikeBtn">
+                      <button mat-icon-button class="favorite">
+                        <mat-icon> favorite </mat-icon>
+                      </button>
+                    </ng-template>
+                    <ng-template #notLikeBtn>
+                      <button mat-icon-button class="favorite">
+                        <mat-icon> favorite_border </mat-icon>
+                      </button>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noRecord>
+      <h2 class="text-center">Không có khóa học phù hợp điều kiện lọc</h2>
+    </ng-template>
+  </div>
+</div>

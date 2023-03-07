@@ -1,0 +1,39 @@
+<div class="wrapper">
+    <form class="form" [formGroup]="fg">
+        <div class="text-center" style="font-size: 18px; font-weight: bold">{{action}} Câu Hỏi</div>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Tên câu hỏi</mat-label>
+            <textarea required matInput formControlName="ten_cau_hoi"></textarea>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Mô tả</mat-label>
+            <textarea matInput formControlName="mo_ta"></textarea>
+        </mat-form-field>
+
+
+        <!-- <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Danh sách câu trả lời</mat-label>
+            <input required matInput formArrayName="ds_cautraloi">
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Đáp án</mat-label>
+            <input required matInput formArrayName="dap_an">
+        </mat-form-field> -->
+
+        <div>
+            <app-answer [data]="this.ch" #answer></app-answer>
+        </div>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Loại câu hỏi</mat-label>
+            <mat-select formControlName="loai_cau_hoi">
+                <mat-option value="true">true</mat-option>
+                <mat-option value="false">false</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</div>
+<div class="text-center">
+    <button mat-button (click)="doAction()" mat-flat-button color="primary">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Hủy Bỏ</button>
+</div>

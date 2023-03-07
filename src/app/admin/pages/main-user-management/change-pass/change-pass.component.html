@@ -1,0 +1,41 @@
+<div class="wrapper">
+    <div class="text-center">
+        <h2>Thay đổi mật khẩu</h2>
+    </div>
+    <form class="form" [formGroup]="fg">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input required matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>New Password</mat-label>
+            <input matInput required placeholder="New password" 
+            formControlName="newpassword" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide newpassword'" [attr.aria-pressed]="hide" >
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <div *ngIf="f.newpassword.touched && f.newpassword.invalid" class="alert alert-danger">
+                <div *ngIf="f.newpassword.errors.required">Password is required.</div>
+            </div>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput required placeholder="Confirm password" 
+            formControlName="confirmpassword" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide confirmpassword'" [attr.aria-pressed]="hide" >
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <div *ngIf="f.confirmpassword.touched && f.confirmpassword.invalid" class="alert alert-danger">
+                <div *ngIf="f.confirmpassword.errors.required">Password is required.</div>
+                <div *ngIf="f.confirmpassword.errors.confirmValidator">New Password and Confirm Password must be match!</div>
+            </div>
+        </mat-form-field>
+    </form>
+</div>
+<div class="text-center">
+    <button mat-button (click)="doAction()" mat-flat-button color="primary" [disabled]="!fg.valid">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Hủy Bỏ</button>
+</div>

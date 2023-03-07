@@ -1,0 +1,136 @@
+<div class="form-gia-tri-dv-wrapper">
+  <div class="d-flex justify-content-between">
+    <h1 mat-dialog-title>Giá trị đầu vào</h1>
+    <button mat-icon-button [mat-dialog-close]="true">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <ng-container *ngFor="let dv of this.dauvao_daura.dau_vao">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>{{ dv.ten_dau_vao }} ( {{ dv.kieu_du_lieu }} )</mat-label>
+        <ng-template
+          [ngIf]="this.filterType(dv.kieu_du_lieu) == 'boolean'"
+          [ngIfElse]="input"
+        >
+          <mat-select [(ngModel)]="dv.gia_tri">
+            <mat-option [value]="'true'"> true </mat-option>
+            <mat-option [value]="'false'"> false </mat-option>
+          </mat-select>
+        </ng-template>
+        <ng-template #input>
+          <!-- string type -->
+          <ng-template #textType>
+            <input matInput [(ngModel)]="dv.gia_tri" type="text" />
+          </ng-template>
+
+          <ng-template
+            [ngIf]="
+              ['integer', 'float'].includes(this.filterType(dv.kieu_du_lieu))
+            "
+            [ngIfElse]="textType"
+          >
+            <!-- integer type -->
+            <input
+              type="number"
+              matInput
+              [(ngModel)]="dv.gia_tri"
+              *ngIf="this.filterType(dv.kieu_du_lieu) == 'integer'"
+              step="1"
+              onkeydown="if(event.key==='.'){event.preventDefault();}"
+              onpaste="let pasteData = event.clipboardData.getData('text'); if(pasteData){pasteData.replace(/[^0-9]*/g,'');} "
+            />
+
+            <!-- float type -->
+            <input
+              type="number"
+              matInput
+              [(ngModel)]="dv.gia_tri"
+              *ngIf="this.filterType(dv.kieu_du_lieu) == 'float'"
+              step="0.01"
+            />
+          </ng-template>
+        </ng-template>
+      </mat-form-field>
+    </ng-container>
+    <div class="text-left">
+      <h1>Giá trị đầu ra</h1>
+    </div>
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label
+        >Giá trị đầu ra (
+        {{ this.dauvao_daura.dau_ra.kieu_du_lieu }} )</mat-label
+      >
+      <ng-template
+        [ngIf]="
+          this.dauvao_daura.dau_ra.kieu_du_lieu.trim().toLowerCase() ==
+          'boolean'
+        "
+        [ngIfElse]="input_dr"
+      >
+        <mat-select [(ngModel)]="this.dauvao_daura.dau_ra.gia_tri">
+          <mat-option [value]="'true'"> true </mat-option>
+          <mat-option [value]="'false'"> false </mat-option>
+        </mat-select>
+      </ng-template>
+      <ng-template #input_dr>
+        <ng-template #textType_dr>
+          <input
+            matInput
+            [(ngModel)]="this.dauvao_daura.dau_ra.gia_tri"
+            type="text"
+          />
+        </ng-template>
+        <ng-template
+          [ngIf]="
+            ['integer', 'float'].includes(
+              this.filterType(this.dauvao_daura.dau_ra.kieu_du_lieu)
+            )
+          "
+          [ngIfElse]="textType_dr"
+        >
+          <!-- integer type -->
+          <input
+            type="number"
+            matInput
+            [(ngModel)]="this.dauvao_daura.dau_ra.gia_tri"
+            *ngIf="
+              this.filterType(this.dauvao_daura.dau_ra.kieu_du_lieu) ==
+              'integer'
+            "
+            step="1"
+            onkeydown="if(event.key==='.'){event.preventDefault();}"
+            onpaste="let pasteData = event.clipboardData.getData('text'); if(pasteData){pasteData.replace(/[^0-9]*/g,'');} "
+          />
+
+          <!-- float type -->
+          <input
+            type="number"
+            matInput
+            [(ngModel)]="this.dauvao_daura.dau_ra.gia_tri"
+            *ngIf="
+              this.filterType(this.dauvao_daura.dau_ra.kieu_du_lieu) == 'float'
+            "
+            step="0.01"
+          />
+        </ng-template>
+      </ng-template>
+    </mat-form-field>
+    <!-- check box for lock -->
+    <div class="d-flex">
+      <mat-checkbox [(ngModel)]="this.dauvao_daura.an">Khóa</mat-checkbox>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div class="text-center">
+      <ng-template [ngIf]="this.dauvao_daura.method == 'add'" [ngIfElse]="edit">
+        <button mat-raised-button color="primary" (click)="add()">Lưu</button>
+      </ng-template>
+      <ng-template #edit>
+        <button mat-raised-button color="primary" (click)="update()">
+          Cập nhật
+        </button>
+      </ng-template>
+    </div>
+  </mat-dialog-actions>
+</div>

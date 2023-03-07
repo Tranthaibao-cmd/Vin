@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <div class="text-center" style="font-size: 18px; font-weight: bold">{{action}} Đề Trắc Nghiệm</div>
+    <form class="form" [formGroup]="fg">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Loại đề thi</mat-label>
+            <input required matInput formControlName="loai_de_thi">
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Tên đề thi</mat-label>
+            <input required matInput formControlName="ten_de_thi">
+        </mat-form-field>
+    </form>
+</div>
+<div class="text-center">
+    <button mat-button (click)="doAction()" mat-flat-button color="primary" [disabled]="!fg.valid">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Hủy Bỏ</button>
+</div>

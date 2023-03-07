@@ -1,0 +1,21 @@
+.container-iframe {
+  position: relative;
+  width: 100%;
+  height: 400vh;
+  padding-bottom: 56.25%;
+  
+
+  .iframe {
+    position: absolute;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    
+    width: 126%;
+    height: 400vh;
+    top: 0px;
+    left: -14%;
+    right: 0px;
+    bottom: 0px;
+  }
+}

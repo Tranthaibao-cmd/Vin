@@ -1,0 +1,67 @@
+.course-landing-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  .course-landing-item {
+    display: flex;
+    flex-direction: column;
+    span {
+      font-size: 16px;
+      font-weight: bold;
+      padding: 20px 0px;
+    }
+    input,select,option {
+      height: 48px;
+      outline: none;
+    }
+    .error-noti{
+      display: flex;
+      align-items: center;
+      background-color: #fcaea0;
+      margin-bottom: 20px;
+      mat-icon{
+        padding: 0px 16px;
+      }
+      .error-text{
+        padding: 16px;
+        span{
+          padding: 0px;
+        }
+        p{
+          margin-bottom: 0px;
+        }
+      }
+    }
+    .user{
+      display: flex;
+      align-items: center;
+      span{
+        font-size: 16px;
+        font-weight: 400;
+        color: #401b9c;
+      }
+      .user-img{
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        margin: 10px;
+        display: flex;
+        img{
+          flex: 1;
+          height: 59px;
+          width: 59px;
+          border-radius: 50%;
+          border: 1px solid #111111;
+        }
+      }
+    }
+  }
+}
+h1 {
+    font-family: SuisseWorks, Georgia, Times, times new roman, serif,
+      apple color emoji, segoe ui emoji, segoe ui symbol;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.35;
+    letter-spacing: -0.02rem;
+  }

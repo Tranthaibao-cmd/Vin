@@ -1,0 +1,105 @@
+<div class="lecture-wrapper">
+  <div class="content">
+    <ng-container
+      *ngTemplateOutlet="
+        !videoUploadPress ? videoNotExpandTemp : fileSelectTemp;
+        context: { name: 'video' }
+      "
+    >
+    </ng-container>
+    <ng-template [ngIf]="!descriptionUploadPress" [ngIfElse]="editorTemp">
+      <ng-template [ngIf]="!description" [ngIfElse]="descriptionExists">
+        <div class="content-btn" (click)="descriptionUploadPress = true">
+          <i class="material-icons">add</i>
+          <span>Mô tả</span>
+        </div>
+      </ng-template>
+      <ng-template #descriptionExists>
+        <div align="end" (click)="descriptionUploadPress = true"><i class="material-icons icon-color">edit</i></div>
+        <div
+          style="height: auto; width: 100%; display: block"
+          class="resourse"
+          [innerHTML]="description"
+        ></div>
+      </ng-template>
+    </ng-template>
+    <ng-template #editorTemp>
+      <app-editor [html-content]="description" (btn-click)="editorClickHandler($event)"></app-editor>
+    </ng-template>
+    <ng-container
+      *ngTemplateOutlet="
+        !resourseUploadPress ? resourseNotExpandTemp : fileSelectTemp;
+        context: { name: 'resourse' }
+      "
+    >
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #fileSelectTemp let-name="name">
+  <div class="my-4">
+    <div>
+      <label for="upload-photo">
+        <span class="upload-photo-box">
+          <span class="upload-photo-text"> No file selected </span>
+        </span>
+        <span class="upload-photo-btn">Select video</span>
+      </label>
+      <input
+        type="file"
+        name="photo"
+        id="upload-photo"
+        [accept]="
+          name == 'video'
+            ? '.avi,.mpg,.mpeg,.flv,.mov,.m2v,.m4v,.mp4,.rm,.ram,.vob,.ogv,.webm,.wmv'
+            : '*'
+        "
+        (change)="onSelectedFile($event, name)"
+      />
+    </div>
+    <ng-template [ngIf]="name == 'video'">
+      <div style="margin-top: 20px">
+        <b>Note:</b>Tất cả các files không vượt quá 4.0 GB.
+      </div>
+    </ng-template>
+    <div class="mt-3">
+      <button (click)="cancelUploadFileHandler(name)" class="cancel-btn btn">
+        Hủy
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #videoNotExpandTemp>
+  <ng-template
+    [ngIf]="this.videoResourse.length == 0"
+    [ngIfElse]="videoExistsTemp"
+  >
+    <div class="content-btn" (click)="videoUploadPress = true">
+      <i class="material-icons">add</i>
+      <span>Video</span>
+    </div>
+  </ng-template>
+  <ng-template #videoExistsTemp>
+    <div
+      class="resourse"
+      *ngFor="let video of videoResourse; trackBy: trackByFn"
+    >
+      <div>{{ video.name }}({{ video.size / (1024 * 1024) | number }}MB)</div>
+      <div (click)="deleteResourse(video.id,videoResourse)"><i class="material-icons icon-color">delete</i></div>
+    </div>
+  </ng-template>
+</ng-template>
+
+<ng-template #resourseNotExpandTemp>
+  <ng-template [ngIf]="fileResourse">
+    <div class="resourse" *ngFor="let file of fileResourse; trackBy: trackByFn">
+      <div>{{ file.name }}({{ file.size / (1024 * 1024) | number }}MB)</div>
+      <div (click)="deleteResourse(file.id,fileResourse)"><i class="material-icons icon-color">delete</i></div>
+    </div>
+  </ng-template>
+  <div class="content-btn" (click)="resourseUploadPress = true">
+    <i class="material-icons">add</i>
+    <span>Tài liệu</span>
+  </div>
+</ng-template>

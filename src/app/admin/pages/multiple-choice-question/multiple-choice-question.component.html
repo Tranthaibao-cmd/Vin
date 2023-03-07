@@ -1,0 +1,35 @@
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2">Câu Hỏi Trắc Nghiệm</div>
+    <div class="page__content shadow p-3 position-relative">
+        <div class="text-left" style="font-size: medium;">
+           <!--  <mat-form-field appearance="fill">
+                <mat-label>Tìm kiếm</mat-label>
+                <input matInput (keyup)="Filter($event)">
+            </mat-form-field> -->
+            <button mat-icon-button color="primary" style="float: right;" (click)="openDialog('Thêm', {})">
+                <mat-icon style="font-size: 45px; right: 8px; position: relative;">add_box</mat-icon>
+            </button>
+            <button mat-raised-button color="accent" style="float: right;" (click)="openUpDialog('Upload', {})">Nhập file</button>
+        </div>
+        <div class="table" *ngIf="question_list | async as Question_list">
+            <div *ngFor="let question of Question_list;" class="question-item" style="position: relative;">
+                <h3 style="width: 90%;"><strong>Câu hỏi: </strong>{{question.ten_cau_hoi}}</h3>
+                <h3>Danh sách câu trả lời:</h3>
+                
+                <ul class="seperate-item">
+                    <li>{{question.ds_cautraloi}}</li>
+                </ul>
+                
+                <h3>Đáp án:</h3>
+                <ul>
+                    <li>{{question.dap_an}}</li>
+                </ul>
+                <h3>Loại câu hỏi: {{question.loai_cau_hoi}}</h3>
+                <div style="position: absolute; top: 5px; right: 5px; display: flex; cursor: pointer">
+                    <mat-icon color="primary" style="margin-right: 5px" (click)="openDialog('Cập Nhật', question)">edit</mat-icon>
+                    <mat-icon color="warn" (click)="deleteQuestion(question._id)">delete</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

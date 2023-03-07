@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <div class="text-center" style="font-size: 18px; font-weight: bold">{{Action}} Previlege</div>
+    <form class="form" [formGroup]="fg">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Tên</mat-label>
+            <input required matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Hành động</mat-label>
+            <input required matInput formControlName="action">
+        </mat-form-field>
+    </form>
+</div>
+<div class="text-center">
+    <button mat-button (click)="doAction()" mat-flat-button color="primary">{{Action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Hủy Bỏ</button>
+</div>

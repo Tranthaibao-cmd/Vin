@@ -1,0 +1,9 @@
+<div class="cannot-submit-wrapper">
+  <div class="title" mat-dialog-title>Lý do tôi không thể gửi để xem qua ?</div>
+  <div mat-dialog-content>
+    <ng-container *ngFor="let d of data">
+      <div [innerHTML]="this.cannotSubmitExplainData[d]"></div>
+    </ng-container>
+
+  </div>
+</div>

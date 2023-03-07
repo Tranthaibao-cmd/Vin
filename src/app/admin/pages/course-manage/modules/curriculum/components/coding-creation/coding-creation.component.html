@@ -1,0 +1,111 @@
+<div class="coding-creation-wrapper">
+  <ng-template [ngIf]="!showTestcase" [ngIfElse]="testcaseTemp">
+    <ng-container *ngIf="functionObservable | async"> </ng-container>
+    <form [formGroup]="FunctionFormGroup">
+      <div class="input-container">
+        <div class="label">Tên hàm</div>
+        <input type="text" formControlName="name" />
+      </div>
+      <div class="input-container">
+        <div class="label">Thời gian thực thi(giây)</div>
+        <input type="number" formControlName="execution_time" />
+      </div>
+      <div class="input-list">
+        <span>Danh sách đầu vào</span>
+        <div class="btn-add-form" (click)="this.showTestcase = true">
+          Danh sách Testcase
+        </div>
+      </div>
+      <div class="input-list-table">
+        <ng-template
+          [ngIf]="this.params.length == 0"
+          [ngIfElse]="paramsTableTemp"
+        >
+          <div>
+            <span style="font-size: 14px; font-weight: 300"
+              >Chưa có dữ liệu đầu vào nào</span
+            >
+          </div>
+        </ng-template>
+        <ng-template #paramsTableTemp>
+          <table>
+            <tr>
+              <th>Tên đầu vào</th>
+              <th>Kiểu dữ liệu</th>
+              <th>Hoạt động</th>
+            </tr>
+
+            <tr *ngFor="let param of params">
+              <td>{{ param.name }}</td>
+              <td>{{ param.datatype }}</td>
+              <td>
+                <div style="display: flex; align-items: center">
+                  <div (click)="editParam(param)">
+                    <i class="material-icons">edit</i>
+                  </div>
+                  <div (click)="deleteParam(param.id)">
+                    <i class="material-icons">delete</i>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </ng-template>
+      </div>
+      <ng-template [ngIf]="!isAddCodingInput" [ngIfElse]="codingAddInputTemp">
+        <div class="btn-add-form" (click)="addParam()">
+          <i class="material-icons">add</i>Thêm đầu vào
+        </div>
+      </ng-template>
+      <ng-template #codingAddInputTemp>
+        <app-coding-add-input
+          [parameter]="this.paramForEditOrAdd"
+          (btn-click)="codingAddInputEvent($event)"
+        ></app-coding-add-input>
+      </ng-template>
+
+      <div class="input-container">
+        <div class="label">Kiểu dữ liệu đầu ra</div>
+        <select style="font-size: 18px" formControlName="output_data_type">
+          <option *ngFor="let dataType of dataTypeList" [value]="dataType">
+            {{ dataType | titlecase }}
+          </option>
+        </select>
+      </div>
+    </form>
+    <div align="end">
+      <button class="btn save-btn" type="button" (click)="saveFunction()">
+        Lưu
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #testcaseTemp>
+    <div style="width: 100%">
+      <button
+        style="width: 30%"
+        class="btn save-btn"
+        type="button"
+        (click)="showTestcase = false"
+      >
+        Trở lại thông tin Hàm
+      </button>
+    </div>
+    <i>Note: </i
+    ><span
+      >Nếu dữ liệu đầu vào đã thay đổi ,hãy chắc chắn bạn đã lưu thay đổi trước
+      khi thêm dữ liệu testcase .Nếu chưa lưu hãy
+      <a href="" (click)="showTestcase = false">trở lại thông tin hàm</a> để
+      lưu</span
+    >
+    <div class="testcase-container">
+      <app-testcase
+        [content-id]="this.content_id"
+        [course-id]="this.course_id"
+        [function]="{
+          inputs: this.params,
+          output_data_type: this.FunctionForm.output_data_type
+        }"
+      ></app-testcase>
+    </div>
+  </ng-template>
+</div>

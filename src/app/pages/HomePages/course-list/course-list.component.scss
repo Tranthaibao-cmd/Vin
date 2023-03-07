@@ -1,0 +1,29 @@
+::ng-deep.slick-slider{
+  margin: 50px auto;
+}
+::ng-deep.slick-prev::before ,::ng-deep.slick-next::before
+{
+  color: rgba($color: gray, $alpha: 0.6) !important;
+  font-size: 40px;
+  opacity: 0.2;
+  position: relative;
+ }
+::ng-deep .slick-list
+{
+  margin-left: 3.1% !important;
+ }
+ ::ng-deep.slick-prev::before {
+   bottom: 7.5px;
+   left: 23px;
+ }
+ ::ng-deep.slick-next::before{
+  bottom: 7.5px;
+  right: 45px;
+ }
+// ngx-slick-carousel{
+//   display: flex;
+//   justify-content: space-around;
+// }
+
+
+

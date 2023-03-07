@@ -1,0 +1,19 @@
+<div class="coding-add-input-wrapper" [formGroup]="ParamFormGroup">
+  <div class="input-container">
+    <div class="label">Tên đầu vào</div>
+    <input type="text" formControlName="input_name"/>
+  </div>
+  <div class="input-container">
+    <div class="label">Kiểu dữ liệu đầu vào</div>
+    <select name="" id="" style="font-size: 18px" formControlName="data_type">
+      <option *ngFor="let dataType of dataTypeList" [value]="dataType">
+        {{ dataType | titlecase }}
+      </option>
+    </select>
+  </div>
+
+  <div align="end">
+    <button class="btn cancel-btn" type="button" (click)="emitEvent(0)">Hủy</button>
+    <button class="btn save-btn" type="button" (click)="emitEvent(1)">Lưu</button>
+  </div>
+</div>

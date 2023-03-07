@@ -1,0 +1,85 @@
+<div class="add-lessons-container">
+  <div class="add-lessons">
+    <form
+      [formGroup]="TopicFormGroup"
+      action=""
+      class="add-lessons-form"
+    >
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Số thứ tự</mat-label>
+        <input matInput type="number" formControlName="order" />
+        <mat-error *ngIf="TopicFormControl.order.invalid"
+          >Tiêu đề không được để trống</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Tiêu đề</mat-label>
+        <input matInput formControlName="tieu_de" />
+        <mat-error *ngIf="TopicFormControl.tieu_de.invalid"
+          >Tiêu đề không được để trống</mat-error
+        >
+      </mat-form-field>
+      <mat-label>Mô tả</mat-label>
+      <ejs-richtexteditor
+        id="defaultRTE"
+        formControlName="mo_ta"
+        width="80%"
+      >
+      </ejs-richtexteditor>
+    </form>
+  </div>
+
+  <section
+    *ngFor="let r of resourse_list; trackBy: trackById"
+    class="ml-3"
+  >
+    <div
+      id="resource_bar"
+      class="d-flex flex-row justify-content-between"
+    >
+      <div id="title" class="">
+        <a [href]="r.link"
+          ><span class="mr-3"
+            ><mat-icon>{{ r.icon.value }}</mat-icon></span
+          >
+          {{ r.display_name }}</a
+        >
+      </div>
+      <div id="options" class="d-flex flex-row">
+        <button (click)="editResourse(r)" mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button (click)="deleteResourse(r)" mat-icon-button>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div id="content" class="ml-3">
+      <p [innerHTML]="r.des"></p>
+    </div>
+  </section>
+
+  <div class="d-flex flex-row justify-content-between mt-3">
+    <div>
+      <button mat-button (click)="addResourse()">
+        <span class="mr-1"><mat-icon>add</mat-icon></span>
+        Thêm tài liệu
+      </button>
+      <button mat-button (click)="refreshTopicForm()">
+        <span class="mr-1"><mat-icon>autorenew</mat-icon></span
+        >Làm mới
+      </button>
+    </div>
+    <div>
+      <button mat-button (click)="addTopic()">
+        <span class="mr-1"><mat-icon>save</mat-icon></span
+        >Lưu
+      </button>
+      <!-- <button mat-button (click)="refreshTopicForm()">
+        <span class="mr-1"><mat-icon>cancel</mat-icon></span>
+        Hủy
+      </button> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+.wrapper {
+    margin-top: 50px;
+    table {
+      width: 100%;
+    }
+  
+    button {
+      margin-right: 5px;
+    }
+  }
+  ::ng-deep .mat-typography p {
+    margin: 0 0 0 !important;
+  }
+  th.mat-header-cell,td.mat-cell {
+    text-align: center;
+    padding-right: 0px;
+  }
+  .modal-title{
+    font-size: 25px;
+    font-weight: 500;
+  }
+  .filter-add{
+    display: flex;
+    
+    justify-content: space-between;
+    .btn-primary{
+      margin-bottom: 19px;
+      width: 50px;
+      height: 50px;
+      margin-right: 0;
+      span{
+        font-size: 40px;
+        position: relative;
+        top: -12px;
+      }
+    }
+  }
+.mat-form-field
+{
+    width: 50vw;
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: transparent !important;
+}
+ 
+
+
+ 

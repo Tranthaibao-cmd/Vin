@@ -1,0 +1,23 @@
+.coding-add-input-wrapper{
+  width: 100%;
+  margin: 20px 0px;
+    border: 1px solid rgba(0,0,0,0.4);
+    padding: 20px;
+  .input-container{
+    display:flex;
+    align-items: center;
+    margin-bottom: 20px;
+    .label{
+      width: 20%;
+      font-size: 18px;
+      font-weight: 500;
+
+    }
+    input,select{
+      width: 80%;
+      height:50px;
+      outline:none
+    }
+  }
+
+}

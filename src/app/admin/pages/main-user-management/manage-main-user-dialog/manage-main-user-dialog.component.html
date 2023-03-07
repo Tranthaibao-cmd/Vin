@@ -1,0 +1,33 @@
+<div class="wrapper">
+    <div class="text-center" style="font-size: 18px; font-weight: bold">{{action}} Người Dùng</div>
+    <form class="form" [formGroup]="fg">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input required matInput formControlName="first_name">
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input required matInput formControlName="last_name">
+        </mat-form-field>
+
+
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input required matInput type="email" formControlName="email">
+
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill" *ngIf='this.action == "Thêm"'>
+            <mat-label>Password</mat-label>
+            <input required matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Mật khẩu phải có ít nhất 8 ký tự bao gồm số và ký tự đặc biệt">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+    </form>
+</div>
+<div class="text-center">
+    <button mat-button (click)="doAction()" mat-flat-button color="primary" [disabled]="!fg.valid">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Hủy Bỏ</button>
+</div>

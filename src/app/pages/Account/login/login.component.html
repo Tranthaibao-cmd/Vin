@@ -1,0 +1,57 @@
+<div class="wrapper">
+  <div class="account">
+    <div></div>
+
+    <div class="form">
+      <div class="logo-acdamy" style="
+              background-image: url(../../../../assets/common-img/logo.png); height: 120px;
+            "></div>
+      <!-- <div class="fb-login">
+        <button (click)="loginByFB()">
+          <i class="fab fa-facebook social-icon"></i>
+          <span>Đăng nhập với Facebook</span>
+        </button>
+      </div> -->
+      <form action="" [formGroup]="this.fg" (ngSubmit)="login()">
+        <div class="container">
+
+          <div class="user-name">
+            <div>
+              <input type="text" placeholder="Nhập Email" name="uname" required formControlName="username" />
+            </div>
+          </div>
+          <div class="password">
+            <input id="password_input" type="password" placeholder="Mật Khẩu" name="psw" required
+              formControlName="password" />
+
+            <span style="display: none;" id="view_password" (click)='this.toggleViewPassword(false)'><i
+                class="fa fa-eye show-password" aria-hidden="true"></i></span>
+            <span id="hide_password" (click)='this.toggleViewPassword(true)'><i class="fa fa-eye-slash hidden-password"
+                aria-hidden="true"></i></span>
+          </div>
+
+        </div>
+        <div class="btn-submit">
+          <button *ngIf="!this.submited" type="submit" [ngStyle]="{ color: this.fg.invalid ? '#75808a' : '' }"
+            [disabled]="this.fg.invalid" class="btn-submit-login">
+            Đăng Nhập
+          </button>
+          <button *ngIf="this.submited" class="loading">Loading...</button>
+        </div>
+
+        <div *ngIf="this.is_error" class="error-login text-center">
+          <p>Tài khoản hoặc mật khẩu không hợp lệ. Hãy thử lại</p>
+        </div>
+      </form>
+
+    </div>
+    <div></div>
+  </div>
+
+  <div class="img-background">
+    <img src="../../../../assets/common-img/backgroundLogin.png" alt="background" />
+  </div>
+</div>
+<!-- </div>
+  <div class="col-lg-4 col-md-4"></div>
+</div> -->

@@ -1,0 +1,15 @@
+.btn-footer {
+  display: flex;
+  justify-content: space-evenly;
+}
+.wrapper,
+form {
+  display: flex;
+  flex-direction: column;
+}
+.file-label {
+  padding: 10px 0;
+  &:hover {
+    cursor: pointer;
+  }
+}

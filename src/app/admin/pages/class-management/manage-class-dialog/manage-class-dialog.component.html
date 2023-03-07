@@ -1,0 +1,42 @@
+<div class="wrapper">
+    <div class="text-center" style="font-size: 18px; font-weight: bold">{{action}} Lớp Học</div>
+    <form class="form" [formGroup]="fg">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Tên môn học</mat-label>
+            <input required matInput formControlName="category">
+            <!-- <input required matInput formControlName="ten_mon_hoc" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.ten" (click)='changeOption(option.id)'>
+                    {{option.ten}}
+                </mat-option>
+            </mat-autocomplete> -->
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Tên lớp</mat-label>
+            <input required matInput formControlName="title">
+        </mat-form-field>
+
+       
+
+        <!-- <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Avatar</mat-label>
+            <input required type="file" formControlName="avatar">
+        </mat-form-field> -->
+        <mat-label>Avatar</mat-label>
+        <div style="display: flex; align-items: center ;">
+            <img src="{{link}}/{{classformdata.img}}" *ngIf="classformdata.img" class="img-response" width="100px">
+            <input required type="file" (change)="uploadFile($event)"  formControlName="img">
+        </div>
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Trạng thái</mat-label>
+            <mat-select formControlName="course_type" >
+                <mat-option value="{{type.id}}" *ngFor="let type of typeList">{{type.text}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</div>
+<div class="text-center">
+    <button mat-button (click)="doAction()" mat-flat-button color="primary"
+        style="margin-right: 100px;" [disabled]="!fg.valid" >{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Hủy Bỏ</button>
+</div>

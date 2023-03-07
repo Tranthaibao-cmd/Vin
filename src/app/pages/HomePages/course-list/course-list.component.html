@@ -1,0 +1,15 @@
+<!-- <div class="container">
+    <ng-container *ngFor='let course of this.course_list'>
+       <div > <app-course [course-id]='course.course_id' [img]="course.image_path" [full-name]="course.full_name"></app-course></div>
+    </ng-container>
+</div> -->
+
+<ngx-slick-carousel
+  class="carousel"
+  #slickModal="slick-carousel"
+  [config]="slideConfig"
+>
+  <div ngxSlickItem *ngFor="let course of this.course_list;trackBy:trackByFunction" class="slide">
+    <app-course [course-id]='course.course_id' [img]="course.image_path" [full-name]="course.full_name"></app-course>
+  </div>
+</ngx-slick-carousel>

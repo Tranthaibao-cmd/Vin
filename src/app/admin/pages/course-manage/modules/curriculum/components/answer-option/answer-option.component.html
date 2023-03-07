@@ -1,0 +1,29 @@
+<div class="answer-ops-wrapper">
+  <!-- <div class="radio-container">
+    <input [type]="questionType" style="height: 24px; width: 24px"
+    [id]="answer.id" [name]="questionID" [value] = "answer"
+    [(ngModel)]="this.testCheck" />
+  </div> -->
+
+  <div class="input-container">
+    <ng-template [ngIf]="!touch" [ngIfElse]="editorTemp">
+      <p type="text" [innerHTML]="answer.name"></p>
+    </ng-template>
+    <ng-template #editorTemp>
+      <app-normal-editor
+        placeholder="Nhập đáp án"
+        [(ngModel)]="answer.name"
+      ></app-normal-editor>
+    </ng-template>
+
+    <input
+      type="text"
+      placeholder="Giải thích về đáp án "
+      [(ngModel)]="answer.description"
+    />
+  </div>
+</div>
+
+<div>
+  {{testCheck}}
+</div>

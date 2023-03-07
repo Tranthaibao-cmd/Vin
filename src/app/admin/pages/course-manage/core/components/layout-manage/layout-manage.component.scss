@@ -1,0 +1,37 @@
+.container {
+  max-width: 1340px;
+
+}
+.manage-container {
+    padding: 50px;
+    display: flex;
+  .manage-side-nav {
+    max-width: 240px;
+    position: relative;
+    padding: 40px 30px 0px 0px;
+    ul{margin-bottom: 3rem;}
+    h3 {
+      font-weight: bold;
+    }
+    .manage-list {
+      list-style: none;
+      padding: 0px;
+      .manage-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        background-color: #ffffff;
+        a {
+          color: #111111;
+          padding-left: 10px;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .manage-content{
+    box-shadow: 1px 1px 13px -1px #888888;
+    flex: 1;
+  }
+}
+

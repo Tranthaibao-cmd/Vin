@@ -1,0 +1,130 @@
+<div class="curriculum-wrapper">
+  <app-course-manage-header-content-layout>
+    <div header class="header">
+      <h1>Chương trình giảng dạy</h1>
+
+    </div>
+    <div content>
+      <div class="btns-list">
+        <div class="add-btn-container">
+          <ng-template [ngIf]="!BtnsMenuOpen" [ngIfElse]="clearBtnTemp">
+            <button class="add-btn" (click)="BtnsMenuOpen = true">
+              <i class="material-icons">add</i>
+            </button>
+          </ng-template>
+          <ng-template #clearBtnTemp>
+            <button class="delete-btn" (click)="BtnsMenuOpen = false">
+              <i class="material-icons">clear</i>
+            </button>
+          </ng-template>
+        </div>
+      </div>
+
+      <ng-template [ngIf]="BtnsMenuOpen">
+        <div class="content-type-btns" (click)="BtnsMenuOpen = false">
+          <button class="btn" (click)="lectureCreationOpen = true">
+            <span class="d-flex"
+              ><i class="material-icons">add_box</i>Bài học</span
+            ></button
+          ><button
+            class="btn"
+            (click)="
+              quizCreationOpen = true;
+              content = {
+                type: 1,
+                creation_title: 'Tạo bài tập trắc nghiệm mới:'
+              }
+            "
+          >
+            <span class="d-flex"
+              ><i class="material-icons">add_box</i>Câu hỏi trắc nghiệm</span
+            ></button
+          ><button
+            class="btn"
+            (click)="
+              quizCreationOpen = true;
+              content = { type: 2, creation_title: 'Tạo bài tập coding mới:' }
+            "
+          >
+            <span class="d-flex"
+              ><i class="material-icons">add_box</i>Bài tập lập trình</span
+            >
+          </button>
+          <!-- for ai tests -->
+          <button
+            class="btn"
+            (click)="
+              quizCreationOpen = true;
+              content = { type: 3, creation_title: 'Tạo bài tập AI mới' }
+            "
+          >
+            <span class="d-flex"
+              ><i class="material-icons">add_box</i>Bài tập AI</span
+            >
+          </button>
+
+        </div>
+      </ng-template>
+      <ng-container *ngIf="ContentListObservable | async as contentList">
+        <!-- lecture-creation -->
+        <ng-template [ngIf]="lectureCreationOpen">
+          <div class="lecture-creation-wrapper">
+            <app-lecture-creation
+              (btn-click)="lectureCreationClickEvent($event,contentList)"
+            ></app-lecture-creation>
+          </div>
+        </ng-template>
+        <!-- quiz vs coding-->
+        <ng-template [ngIf]="quizCreationOpen">
+          <div class="lecture-creation-wrapper">
+            <app-exercise-creation
+              [title-creation]="content.creation_title"
+              (btn-click)="exerciseCreationClickEvent($event,contentList)"
+            ></app-exercise-creation>
+          </div>
+        </ng-template>
+
+        <div
+          cdkDropList
+          class="drag-drop-list"
+          (cdkDropListDropped)="drop($event, contentList)"
+        >
+          <app-content
+            (content-change)="contentChangeEvent($event, contentList)"
+            [order]="i + 1"
+            [content]="content"
+            class="drag-drop-box"
+            *ngFor="
+              let content of contentList;
+              trackBy: trackByFn;
+              let i = index
+            "
+            cdkDrag
+          >
+            <div
+              class="example-handle"
+              cdkDragHandle
+              dragIcon
+              style="display: flex; align-items: center"
+            >
+              <svg
+                width="24px"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                style="color: rgba(0, 0, 0, 0.5)"
+              >
+                <path
+                  d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                ></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+              </svg>
+            </div>
+          </app-content>
+        </div>
+      </ng-container>
+      <!-- <div class="text-center" style="">
+        <mat-spinner></mat-spinner>
+      </div> -->
+    </div>
+  </app-course-manage-header-content-layout>
+</div>

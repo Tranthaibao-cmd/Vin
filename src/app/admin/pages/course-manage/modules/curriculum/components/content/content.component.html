@@ -1,0 +1,82 @@
+<ng-template [ngIf]="!isEdit" [ngIfElse]="editTemp">
+  <div class="content-wrapper">
+    <div class="title">
+      <div class="title-left">
+        <div class="content-name">
+          Nội dung {{ order }}({{
+            content.type_status | contentType
+          }}): {{ content.title }}
+        </div>
+        <div class="action">
+          <div (click)="editContent()">
+            <a mat-icon-button>
+              <i class="material-icons">edit</i>
+            </a>
+          </div>
+          <div (click)="deleteContent()">
+            <a mat-icon-button>
+              <i class="material-icons">delete</i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="title-right">
+        <ng-template [ngIf]="!expandMorePress" [ngIfElse]="expand_less_temp">
+          <div>
+            <button mat-icon-button (click)="openContentDetails()">
+              <i class="material-icons"> expand_more </i>
+            </button>
+          </div>
+        </ng-template>
+        <ng-template #expand_less_temp>
+          <div>
+            <button mat-icon-button (click)="expandMorePress = false">
+              <i class="material-icons"> expand_less </i>
+            </button>
+          </div>
+        </ng-template>
+
+        <ng-content select="[dragIcon]"></ng-content>
+      </div>
+    </div>
+
+    <ng-template [ngIf]="expandMorePress">
+      <div class="content">
+        <ng-template [ngIf]="content.type_status == 0">
+          <ng-container *ngIf="this.DetailsObserable | async as resourses">
+            <app-lecture
+              [video-resourses]="resourses.video_resourse_list"
+              [file-resourses]="resourses.file_resourse_list"
+              [description]="content.description"
+              [content-id]="content.id"
+              [course-id]="content.course_id"
+            ></app-lecture>
+          </ng-container>
+        </ng-template>
+        <ng-template [ngIf]="content.type_status == 1">
+          <app-quiz
+            [content-id]="content.id"
+            [course-id]="content.course_id"
+          ></app-quiz>
+        </ng-template>
+        <ng-template [ngIf]="content.type_status == 2">
+          <app-coding-creation
+            [content-id]="content.id"
+            [course-id]="content.course_id"
+          ></app-coding-creation>
+        </ng-template>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #editTemp>
+  <div class="edit-temp">
+    <ng-template [ngIf]="content.type_status == 0" [ngIfElse]="exerciseTemp">
+      <app-lecture-creation [content]="contentUsedToEdit" (btn-click)="updateContent($event)"></app-lecture-creation>
+    </ng-template>
+    <ng-template #exerciseTemp>
+      <app-exercise-creation [content]="contentUsedToEdit" (btn-click)="updateContent($event)"></app-exercise-creation>
+    </ng-template>
+  </div>
+</ng-template>

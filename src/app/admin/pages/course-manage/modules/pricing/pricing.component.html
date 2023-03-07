@@ -1,0 +1,39 @@
+<div>
+  <app-course-manage-header-content-layout>
+    <h1 header>Học phí</h1>
+    <div content class="pricing-wrapper">
+      <span >Mức giá khóa học</span>
+      <p style="margin-top: 20px;">
+        Vui lòng chọn mức giá cho khóa học của bạn bên dưới và nhấp vào 'Lưu'.
+        Giá niêm yết mà sinh viên sẽ thấy bằng các đơn vị tiền tệ khác được xác
+        định bằng cách sử dụng ma trận bậc giá.
+      </p>
+      <!-- <p>
+        Nếu bạn định cung cấp khóa học của mình miễn phí, thì tổng thời lượng
+        của nội dung video phải dưới 2 giờ.
+      </p> -->
+      <div style="display:flex">
+        <input type="number" [(ngModel)]="price" >
+       <span class="currency-unit">VND</span>
+        <!-- <select name="cars" id="cars" style="margin-right: 20px; padding: 20px;">
+          <option value="volvo">VND</option>
+          <option value="saab">USD</option>
+
+        </select> -->
+        <!-- <select name="cars" id="cars" style="margin-right: 20px; padding: 20px;">
+          <option value="volvo">Free</option>
+          <option value="saab">19.9</option>
+          <option value="opel">29.9</option>
+          <option value="audi">39.9</option>
+        </select> -->
+
+        <button style="margin-left: 20px;height:58px;" class="btn save-btn" (click)="savePrice()">Lưu</button>
+        <!-- <p>
+          Please complete the premium instructor application here in order to
+          set a price for your course. You can set your course price as soon as
+          your linked payment method is approved.
+        </p> -->
+      </div>
+    </div>
+  </app-course-manage-header-content-layout>
+</div>

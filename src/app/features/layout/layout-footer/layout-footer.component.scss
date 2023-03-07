@@ -1,0 +1,40 @@
+// footer
+.footer {
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px gray;
+  .footer-content{
+    margin-left: 12%;
+    margin-right: 12%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-connect{
+    display: flex;
+    flex-direction: column;
+    .address{
+      height: 30px;
+    }
+    .phone-email{
+      font-size: 14px;
+      .email{
+        border-right: 1px solid gray;
+        padding-right: 10px;
+      }
+      .phone{
+        padding-left: 10px;
+      }
+    }
+  }
+  .infor{
+    margin-left: 12%;
+    margin-right: 12%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

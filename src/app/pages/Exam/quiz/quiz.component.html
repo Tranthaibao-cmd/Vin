@@ -1,0 +1,368 @@
+<div class="skeleton-wrapper" *ngIf="!this.mode.contentLoaded">
+  <div class="sidebar-left">
+    <ngx-skeleton-loader
+      count="2"
+      style="display: flex; flex-direction: column"
+      [theme]="{
+        width: '30vh',
+        'margin-bottom': '10%',
+        height: '35px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+
+    <ngx-skeleton-loader
+      appearance="circle"
+      [theme]="{
+        width: '100px',
+        height: '100px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d',
+        position: 'relative',
+        left: '26%'
+      }"
+    ></ngx-skeleton-loader>
+
+    <ngx-skeleton-loader
+      style="margin-top: 50%"
+      [theme]="{
+        width: '30vh',
+        height: '35px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+  </div>
+  <div class="content">
+    <div class="text-center">
+      <ngx-skeleton-loader
+        [theme]="{
+          width: '40vh',
+          height: '40px',
+          'animation-duration': '1s',
+          'background-color': '#6c757d',
+          'margin-top': '13vh'
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+    <ng-container
+      *ngTemplateOutlet="question_list; context: ctx"
+    ></ng-container>
+    <ng-template #question_list let-d="data2">
+      <ng-container *ngFor="let data of d">
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '90vh',
+            'margin-left': '33vh',
+            height: '1px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader
+          [theme]="{
+            'margin-left': '33vh',
+            width: '16vh',
+
+            height: '28px',
+            'animation-duration': '1s',
+            'background-color': '#6c757d'
+          }"
+        ></ngx-skeleton-loader>
+
+        <div class="question">
+          <ngx-skeleton-loader
+            appearance="circle"
+            [theme]="{
+              width: '30px',
+              'margin-left': '33vh',
+              height: '30px',
+              'animation-duration': '1s',
+              'background-color': '#6c757d'
+            }"
+          ></ngx-skeleton-loader>
+
+          <ngx-skeleton-loader
+            count="2"
+            [theme]="{
+              width: '70vh',
+
+              height: '20px',
+              'animation-duration': '1s',
+              'background-color': '#6c757d'
+            }"
+          ></ngx-skeleton-loader>
+        </div>
+        <ng-container *ngTemplateOutlet="answer; context: ctx"></ng-container>
+        <ng-template #answer let-datas="data">
+          <div class="answer" style="margin-left: 26%" *ngFor="let d of datas">
+            <ngx-skeleton-loader
+              appearance="circle"
+              [theme]="{
+                width: '20px',
+                height: '20px',
+                'animation-duration': '1s',
+                'background-color': '#6c757d'
+              }"
+            ></ngx-skeleton-loader>
+            <ngx-skeleton-loader
+              [theme]="{
+                width: '50vh',
+
+                height: '15px',
+                'animation-duration': '1s',
+                'background-color': '#6c757d'
+              }"
+            >
+            </ngx-skeleton-loader>
+          </div>
+        </ng-template>
+      </ng-container>
+    </ng-template>
+  </div>
+
+  <div class="sidebar-right">
+    <ngx-skeleton-loader
+      appearance="circle"
+      count="40"
+      [theme]="{
+        width: '30px',
+        height: '30px',
+        margin: '10px',
+        'animation-duration': '1s',
+        'background-color': '#6c757d'
+      }"
+    ></ngx-skeleton-loader>
+  </div>
+</div>
+
+<div class="wrapper-quiz" id="wrapper" *ngIf="this.exam_obv | async as exam">
+  <div class="vl-left"></div>
+  <div class="vl-right"></div>
+  <a id="button" (click)="scrollUpToTop()"></a>
+
+  <div class="sidebar-left">
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="this.changeTab('multichoice')"
+        [disabled]=""
+      >
+        Phần lý thuyết
+      </button>
+    </div>
+    <div>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="this.changeTab('coding')"
+        [disabled]=""
+      >
+        Phần thực hành
+      </button>
+    </div>
+    <div>
+      <!-- <button class="btn btn-default" (click)="mode = 'quiz'">Quiz</button>
+          <button class="btn btn-default" (click)="mode = 'review'">Review</button>-->
+      <button
+        class="btn btn-success"
+        (click)="submit_exam()"
+        id="btnSubmit"
+        [disabled]=""
+      >
+        Hoàn thành bài thi
+      </button>
+    </div>
+  </div>
+
+  <ng-container
+    [ngTemplateOutlet]="false ? progress_bar : main"
+    [ngTemplateOutletContext]="{ theoretical_part: exam.theoretical_part }"
+  >
+  </ng-container>
+</div>
+
+<!-- define templates -->
+<ng-template #main let-exam = 'exam'>
+
+  <div class="sidebar-right">
+    <div class="appendix">
+      <div class="question-list">
+        <div
+          class="question"
+          *ngFor="
+            let question of exam.theoretical_part.quiz.questions;
+            let i = index;
+            trackBy: trackByFunction
+          "
+          (click)="ScrollToSpecificSentence(question.id)"
+          id="question_{{ question.id }}"
+          [ngStyle]="{
+            'background-color': question.answered ? '#17a2b8' : '#f5f4f4'
+          }"
+        >
+          <p>{{ i + 1 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3
+        class="title"
+        [innerHTML]="exam.theoretical_part.quiz.name | uppercase | sanitizeHtml"
+      ></h3>
+    </div>
+
+    <div class="col-md-6 text-sm-right">
+      <!--Select Quiz:
+     <select [(ngModel)]="quizName" (change)="loadQuiz(quizName)" name="vdz">
+        <option *ngFor="let quiz of quizes" [value]="quiz.id">{{quiz?.name}}</option>
+      </select> -->
+    </div>
+  </div>
+  <div id="quiz">
+    <h2
+      class="text-sm-center"
+      [innerHTML]="exam.theoretical_part.quiz.description | sanitizeHtml"
+    ></h2>
+
+    <ng-template [ngIf]="this.mode.is_multichoice_mode" [ngIfElse]="codingMode">
+      <hr />
+      <div class="question" style="text-align: justify">
+        <div
+          *ngFor="
+            let question of exam.theoretical_part.quiz.questions;
+            let i = index;
+            let is_last = last;
+            trackBy: trackByFunction
+          "
+          [ngStyle]="{ border: is_last ? '1px solid transparent' : '' }"
+          [id]="question.id"
+        >
+          <div
+            class="badge badge-info"
+            style="margin-bottom: 10px; font-size: 0.8rem"
+          >
+            Câu hỏi {{ i + 1 }} / {{ this.exam.multichoice.total_question }}
+          </div>
+          <div class="text-editor">
+            <div class="header">
+              <div class="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="currentColor"
+                  class="bi bi-question-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                  />
+                  <path
+                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
+                  />
+                </svg>
+              </div>
+              <div
+                [innerHTML]="question.name | sanitizeHtml"
+                style="font-size: 1.02rem !important; text-align: justify"
+              ></div>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-12" *ngFor="let option of question.options">
+          <div class="option text-editor">
+            <label class="" [attr.for]="option.id">
+                <input  id="{{option.id}}" type="checkbox" [(ngModel)]="option.selected" (change)="onSelect(question, option);" />
+                {{option.name}}
+            </label>
+          </div>
+        </div> -->
+
+          <mat-radio-group
+            *ngIf="question.question_type === 1"
+            class="radio-group"
+          >
+            <mat-radio-button
+              *ngFor="let option of question.options; trackBy: trackByFunction"
+              [value]="option.id"
+              (change)="onSelect(question, option)"
+              [checked]="option.selected"
+            >
+              <div
+                style="text-align: justify"
+                [innerHTML]="option.name | sanitizeHtml"
+              ></div>
+              <p class="emp"></p>
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <section class="radio-group" *ngIf="question.question_type === 0">
+            <mat-checkbox
+              *ngFor="let option of question.options; trackBy: trackByFunction"
+              [(ngModel)]="option.selected"
+              (change)="onSelect(question, option)"
+            >
+              <div [innerHTML]="option.name | sanitizeHtml"></div>
+            </mat-checkbox>
+          </section>
+        </div>
+
+        <hr />
+        <!-- <div class="text-sm-center">
+        <button
+          class="btn btn-default"
+          *ngIf="config.allowBack"
+          (click)="goTo(0)"
+        >
+          First
+        </button>
+        <button
+          class="btn btn-default"
+          *ngIf="config.allowBack"
+          (click)="goTo(pager.index - 1)"
+        >
+          Prev
+        </button>
+        <button class="btn btn-primary" (click)="goTo(pager.index + 1)">
+          Next
+        </button>
+        <button
+          class="btn btn-default"
+          *ngIf="config.allowBack"
+          (click)="goTo(pager.count - 1)"
+        >
+          Last
+        </button>
+        <pagination *ngIf="config.showPager" direction-links="false" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+      </div> -->
+      </div>
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #codingMode>
+  <div class="codingExam" id="codingExam">
+    <p class="text-center">
+      <!-- <a [href]="this.exam_link" target="_blank"
+      >Nhấn vào đây để thi thực hành</a
+    > -->
+      <!-- <app-file-http
+        class="quiz-iframe"
+        [url]="this.exam.jupyter_exam.link"
+      ></app-file-http> -->
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #progress_bar>
+  <div class="progress_bar">
+    <h1>Xin vui lòng đợi ...</h1>
+    <mat-progress-bar mode="buffer"></mat-progress-bar>
+  </div>
+</ng-template>

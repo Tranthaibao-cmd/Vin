@@ -1,0 +1,5 @@
+<h2>Bạn muốn hoàn thành bài thi?</h2>
+<mat-dialog-actions align="center">
+    <button mat-dialog-close mat-raised-button color="primary">Cancel</button>
+    <button [mat-dialog-close]="true" cdkFocusInitial mat-raised-button color="primary" (click)="alertWithSuccess()">Đồng ý</button>
+</mat-dialog-actions>

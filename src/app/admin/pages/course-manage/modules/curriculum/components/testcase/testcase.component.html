@@ -1,0 +1,28 @@
+<div class="testcase-wrapper">
+  <ng-container *ngIf="this.testcaseObservable | async as testcaseList">
+    <div class="label">
+      <span>Danh sách testcase</span>
+      <div class="btn-add-form" (click)="addTestCaseFn()">
+        <i class="material-icons">add</i>Thêm testcase
+      </div>
+    </div>
+    <ng-template [ngIf]="addTestcase">
+      <app-testcase-creation
+        [testcase]="testcaseAddOredit"
+        (btn-click)="btnClickEventHandler($event,testcaseList)"
+      ></app-testcase-creation>
+    </ng-template>
+    <div class="testcase-list">
+      <div
+        class="testcase"
+        *ngFor="let testcase of testcaseList; let i = index; trackBy: trackBy"
+      >
+        <div>Testcase {{ i + 1 }}</div>
+        <div>
+          <i class="material-icons" (click)="editTestcase(testcase)">edit</i>
+          <i class="material-icons" (click)="deleteTestcase(testcase.id,testcaseList)">delete</i>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,16 @@
+<mat-nav-list>
+  <div class="logo py-4" style="padding-top: 0px !important;">
+    <img src="../../../../assets/common-img/favicon1.png" alt="Company Logo" />
+  </div>
+  <mat-divider></mat-divider>
+  <h2 matSubheader class="mt-2">APPLICATIONS</h2>
+  <div>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/class-management">
+      <mat-icon>class</mat-icon>Danh sách lớp học
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/main-user-management" *ngIf="this.roleLogin">
+      <mat-icon>person</mat-icon>Danh sách người dùng
+    </a>
+  </div>
+</mat-nav-list>
+  

@@ -1,0 +1,119 @@
+<div class="manage-container container">
+  <div class="manage-side-nav">
+    <h3>Kế hoạch khóa học</h3>
+    <ul class="manage-list">
+      <li
+        (click)="clickToTab('intendedLearners')"
+        [ngStyle]="{
+          'border-left': this.currentTab.intendedLearners
+            ? '5px solid black'
+            : '1px solid white'
+        }"
+        class="manage-item"
+      >
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <a routerLink="intended-learners">Mục đích môn học</a>
+      </li>
+      <li
+        class="manage-item"
+        (click)="clickToTab('courseStructure')"
+        [ngStyle]="{
+          'border-left': this.currentTab.courseStructure
+            ? '5px solid black'
+            : '1px solid white'
+        }"
+      >
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <a routerLink="course-structure">Cấu trúc môn học</a>
+      </li>
+      <li
+        class="manage-item"
+        (click)="clickToTab('setupTest')"
+        [ngStyle]="{
+          'border-left': this.currentTab.setupTest
+            ? '5px solid black'
+            : '1px solid white'
+        }"
+      >
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <a routerLink="setup-test">Cài đặt và kiểm tra video </a>
+      </li>
+    </ul>
+    <h3>Tạo nội dung cho khóa học</h3>
+    <ul class="manage-list">
+      <li
+        class="manage-item"
+        (click)="clickToTab('filmEdit')"
+        [ngStyle]="{
+          'border-left': this.currentTab.filmEdit
+            ? '5px solid black'
+            : '1px solid white'
+        }"
+      >
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <a routerLink="film-edit">Film & edit</a>
+      </li>
+      <li
+        class="manage-item"
+        (click)="clickToTab('curriculum')"
+        [ngStyle]="{
+          'border-left': this.currentTab.curriculum
+            ? '5px solid black'
+            : '1px solid white'
+        }"
+      >
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <a routerLink="curriculum">Chương trình giảng dạy</a>
+      </li>
+    </ul>
+    <h3>Xuất bản khóa học</h3>
+    <ul class="manage-list">
+      <li
+        class="manage-item"
+        (click)="clickToTab('courseLandingPage')"
+        [ngStyle]="{
+          'border-left': this.currentTab.courseLandingPage
+            ? '5px solid black'
+            : '1px solid white'
+        }"
+      >
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <a routerLink="course-landing-page">Trang đích của khóa học</a>
+      </li>
+      <li
+        class="manage-item"
+        (click)="clickToTab('pricing')"
+        [ngStyle]="{
+          'border-left': this.currentTab.pricing
+            ? '5px solid black'
+            : '1px solid white'
+        }"
+      >
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <a routerLink="pricing">Học phí</a>
+      </li>
+      <!-- <li class="manage-item">
+                <mat-icon>radio_button_unchecked</mat-icon>
+                <a routerLink="course-messages">Thông điệp khóa học</a>
+            </li> -->
+    </ul>
+    <ng-container
+      *ngIf="
+        this.course.status
+          | course_status_btn
+            : this.user.role_id
+            : this.user.id
+            : this.course.instructor_id as btnName
+      "
+    >
+      <button
+        class="btn save-btn"
+        style="width: 100%"
+        (click)="changeStatus()"
+      >{{btnName}}</button>
+    </ng-container>
+  </div>
+  <div class="manage-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

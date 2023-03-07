@@ -1,0 +1,21 @@
+.wrapper {
+  margin-top: 50px;
+  table {
+    width: 100%;
+  }
+
+  button {
+    margin-right: 5px;
+  }
+}
+::ng-deep .mat-typography p {
+  margin: 0 0 0 !important;
+}
+th.mat-header-cell,td.mat-cell {
+  text-align: center;
+  padding-right: 0px;
+}
+// ::ng-deep .mat-typography h2 {
+//   margin: 35px 0 16px !important;
+// }
+

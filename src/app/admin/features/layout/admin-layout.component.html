@@ -1,0 +1,11 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="sideBarOpen">
+      <!-- <mat-drawer mode="side" opened="true"> -->
+    <app-sidenav></app-sidenav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <moodle-admin-header (toggleSidebarForMe)="sideBarToggler()"></moodle-admin-header>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+  

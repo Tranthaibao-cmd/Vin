@@ -1,0 +1,50 @@
+image-cropper {
+  height: 50vh;
+}
+.cropper-container {
+    display: flex;
+    width: 100%;
+  .input-image {
+      display: flex;
+      flex-direction: column;
+      padding-left: 20px;
+      flex: 1;
+      p{
+          padding-bottom: 20px;
+          line-height: 20px;
+          text-align: justify;
+          font-size: 16px;
+          
+      }
+    label {
+      cursor: pointer;
+      .upload-photo-box {
+        border: 1px solid #111;
+        background-color: #f7f9fa;
+        padding: 20px;
+
+        .upload-photo-text {
+          font-size: 16px;
+        }
+      }
+      .upload-photo-btn {
+        border: 1px solid #111;
+        border-left: none;
+        font-weight: bold;
+        padding: 20px;
+      }
+    }
+
+    #upload-photo {
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+  .cropper{
+   
+    .img-response{
+        max-height:  225px;
+    }
+  }
+}

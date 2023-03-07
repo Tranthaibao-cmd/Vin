@@ -1,0 +1,50 @@
+
+<form [formGroup]="this.fg">
+  <div style="display: flex; justify-content: space-between">
+    <h1 mat-dialog-title>Đầu vào</h1>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+<mat-dialog-content>
+  <div style="display: flex; flex-direction: column">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Tên đầu vào</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="ten_dau_vao"
+        placeholder="tên đầu vào"
+        
+      />
+      <!-- <mat-hint>yeah that is right</mat-hint> -->
+      <mat-error *ngIf="this.checkError('ten_dau_vao', 'required')"
+        >Trường này bắt buộc</mat-error
+      >
+      <mat-error *ngIf="this.checkError('ten_dau_vao', 'pattern')"
+          >Sai quy tắc tên biến(không chứa kí tự đặc biệt:@,#,%... , không chứa dấu cách, không để số 0 ở đầu )</mat-error
+        >
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Kiểu dữ liệu</mat-label>
+      <mat-select formControlName="kieu_du_lieu">
+        <mat-option *ngFor="let o of this.options" [value]="o">{{
+          o | titlecase
+        }}</mat-option>
+      </mat-select>
+      <!-- <mat-hint>yeah that is right</mat-hint> -->
+      <mat-error *ngIf="this.checkError('kieu_du_lieu', 'required')"
+        >Trường này bắt buộc</mat-error
+      >
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>  <ng-template #edit >
+    <button mat-raised-button color='primary' style="width: 100%;" (click)='InsertData()' [disabled]='this.fg.invalid'>Lưu</button>
+  </ng-template>
+  <ng-template [ngIf]='this.data.is_edit' [ngIfElse]='edit'>
+    <button mat-raised-button color='primary' style="width: 100%;" (click)='UpdateData()' [disabled]='this.fg.invalid'>Cập nhật</button>
+  </ng-template>
+</mat-dialog-actions>
+
+</form>

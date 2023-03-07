@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="normalize.scss" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap"
+  rel="stylesheet"
+/>
+
+<div class="wrapper">
+  <div class="side left">
+    <div class="image dog"></div>
+    <div class="caption">
+      <h1>Kiểm tra đầu vào</h1>
+      <a
+        class="button"
+        routerLink="/entrance-exam-list"
+        [queryParams]="{ course_id: this.course_id }"
+        >Bắt đầu</a
+      >
+    </div>
+  </div>
+
+  <div class="side right">
+    <div class="image cat"></div>
+    <div class="caption">
+      <h1>Danh sách bài thi</h1>
+      <a
+        class="button"
+        routerLink="/course/quizes"
+        [queryParams]="{ course_id: this.course_id }"
+        >Xem</a
+      >
+    </div>
+  </div>
+</div>

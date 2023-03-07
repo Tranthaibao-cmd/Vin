@@ -1,0 +1,63 @@
+@import "../../test/test.component.scss";
+
+table {
+  width: 100%;
+}
+
+.wrapper {
+  margin-top: 50px;
+}
+.desc-container {
+  font-size: 13px !important;
+}
+.topic-item {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+}
+th.mat-header-cell,
+td.mat-cell {
+  text-align: center;
+}
+
+th.mat-header-cell:last-of-type,
+td.mat-cell:last-of-type,
+td.mat-footer-cell:last-of-type {
+  padding-right: 0px;
+}
+
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type {
+  padding-left: 0px;
+}
+
+.mat-form-field {
+  width: 80%;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white !important;
+}
+.no-style {
+  list-style: none;
+  & > li {
+    display: flex;
+    align-items: center;
+    & > a {
+      margin-left: 5px;
+    }
+  }
+}
+.blueBg {
+  color: #2c6dff;
+}
+.redBg {
+  color: #ff3b3b;
+}
+.yellowBg {
+  color: #ff8720;
+}
+
+

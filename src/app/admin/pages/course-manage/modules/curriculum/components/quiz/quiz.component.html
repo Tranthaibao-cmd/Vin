@@ -1,0 +1,42 @@
+<div class="quiz-wrapper">
+  <ng-template [ngIf]="!this.addNewQuestion" [ngIfElse]="newQuestionTemp">
+    <div class="btn-new-question-container">
+      <span>Danh sách câu hỏi</span>
+      <div class="btn-add" (click)="createNewQuestion()">
+        <i class="material-icons">add</i>Câu hỏi mới
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #newQuestionTemp>
+    <app-question
+      [question]="newQuestion"
+      (btn-click)="btnClickEventHandler($event)"
+    ></app-question>
+    <div class="btn-add-form" (click)="addAnswer()">
+      <i class="material-icons">add</i> Thêm đáp án
+    </div>
+    <div class="action" align="end">
+      <button
+        class="btn cancel-btn"
+        type="button"
+        (click)="this.addNewQuestion = false"
+      >
+        Hủy
+      </button>
+      <button class="btn save-btn" type="button" (click)="saveQuestion()">
+        Lưu
+      </button>
+    </div>
+  </ng-template>
+  <div class="question-list">
+    <div class="question-container" *ngFor="let question of questions">
+      <div [innerHTML]="question.name"></div>
+      <div>
+        <i class="material-icons" (click)="deleteQuestion(question.id)"
+          >delete</i
+        >
+        <i class="material-icons" (click)="editQuestion(question)">edit</i>
+      </div>
+    </div>
+  </div>
+</div>

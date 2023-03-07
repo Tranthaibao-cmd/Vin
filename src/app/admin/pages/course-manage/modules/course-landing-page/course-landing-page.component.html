@@ -1,0 +1,82 @@
+<div>
+  <app-course-manage-header-content-layout>
+    <h1 header>Trang đích của khóa học</h1>
+    <div [formGroup]="formGroup" content class="course-landing-wrapper">
+      <div class="course-landing-item">
+        <span> Tiêu đề khóa học </span>
+        <input type="text" formControlName="title" />
+      </div>
+      <div class="course-landing-item">
+        <span> Ngôn ngữ khóa học </span>
+        <select formControlName="teaching_language">
+          <option
+            value=""
+            *ngFor="let language of this.teachingLanguage"
+            [value]="language"
+          >
+            {{ language | titlecase }}
+          </option>
+        </select>
+      </div>
+      <div class="course-landing-item">
+        <span> Thể loại </span>
+        <select formControlName="category">
+          <option
+            value=""
+            *ngFor="let category of this.course_categories"
+            [value]="category.name"
+          >
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div class="course-landing-item">
+        <span> Mô tả khóa học </span>
+        <app-normal-editor formControlName="description"></app-normal-editor>
+      </div>
+      <div class="course-landing-item">
+        <span> Hình ảnh khóa học </span>
+        <app-cropper-image
+          [filename]="this.imgName"
+          [src-img]="this.img"
+          (img-cropped)="getFile($event)"
+        ></app-cropper-image>
+      </div>
+      <div class="course-landing-item">
+        <span> Hồ sơ người tạo </span>
+          <div class="error-noti" >
+            <mat-icon>error</mat-icon>
+            <div class="error-text">
+              <span
+                >Tất cả các giảng viên hiển thị của khóa học này phải hoàn thành
+                hồ sơ của họ trước khi khóa học có thể được xuất bản.</span
+              >
+              <p>
+                Điều này bao gồm tên, hình ảnh và một bản tóm tắt ngắn về lý
+                lịch của bạn.
+              </p>
+            </div>
+          </div>
+          <div class="user">
+            <div class="user-img">
+              <img src="{{link}}/{{this.user.avatar_pic}}">
+            </div>
+            <span>{{this.user.first_name}} {{this.user.last_name}}</span>
+          </div>
+          <div class="error-noti">
+            <div class="error-text">
+              <span>Chưa hoàn thiện</span>
+              <p>Tiểu sử người tạo của bạn phải có ít nhất 50 từ.</p>
+              <p>Hình ảnh người tạo của bạn là bắt buộc.</p>
+              <a routerLink="/user-infor">Hồ sơ người tạo khóa học</a>
+            </div>
+          </div>
+      </div>
+      <div align="end">
+        <button class="btn save-btn" style="width: 20%" (click)="updateData()">
+          Cập nhật thay đổi
+        </button>
+      </div>
+    </div>
+  </app-course-manage-header-content-layout>
+</div>

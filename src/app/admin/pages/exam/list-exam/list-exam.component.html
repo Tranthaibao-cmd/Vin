@@ -1,0 +1,119 @@
+
+
+<div class="wrapper">
+  <div style="margin-bottom: 30px;">
+    <a routerLink='/admin/course-list'>Danh sách khóa học > </a>
+    <a>{{this.course_name}}</a>
+  </div>
+  <div class="text-center">
+    <ngx-skeleton-loader
+    *ngIf='!this.contentLoaded'
+        [theme]="{
+          width: '60vh',
+          height: '25px',
+          'animation-duration': '1s',
+          'background-color': '#6c757d'
+
+        }"
+      ></ngx-skeleton-loader>
+    <h1 *ngIf='this.contentLoaded'>{{this.course_name}}</h1>
+  </div>
+  <div class="filter-add">
+    <div class="filter">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Tìm kiếm</mat-label>
+        <input matInput (keyup)="filter($event)" />
+      </mat-form-field>
+    </div>
+    <button
+      mat-icon-button
+      color="primary"
+     (click)='add()'
+    >
+      <mat-icon style="font-size: 50px;position: relative;right: 20px;top: 20px;">add_box</mat-icon>
+    </button>
+  </div>
+
+  <div></div>
+
+  <div class="text-center" *ngIf='this.kyThiObservale | async'></div>
+  <div class="mat-elevation-z8" >
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Số thứ tự">
+        <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Tên">
+        <th mat-header-cell *matHeaderCellDef>Tên kỳ thi</th>
+        <td mat-cell *matCellDef="let element">{{ element.ten_ky_thi }}</td>
+      </ng-container>
+      <ng-container matColumnDef="Thời điểm bắt đầu kỳ thi">
+        <th mat-header-cell *matHeaderCellDef>Thời điểm bắt đầu kỳ thi</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.tg_bat_dau * 1000 | date: "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Thời điểm kết thúc kỳ thi">
+        <th mat-header-cell *matHeaderCellDef>Thời điểm kết thúc kỳ thi</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.tg_ket_thuc * 1000 | date: "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Thời gian làm bài">
+        <th mat-header-cell *matHeaderCellDef>Thời gian làm bài</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.thoi_gian_lam_bai }} phút
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Hoạt động">
+        <th mat-header-cell *matHeaderCellDef>Hoạt động</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-raised-button
+            color="accent"
+            aria-label="Example icon button with a delete icon"
+            (click)='CauHoi(element)'
+          >
+            Câu hỏi
+          </button>
+          <button
+            mat-icon-button
+            color="primary"
+            aria-label="Example icon button with a delete icon"
+            (click)='edit(element)'
+
+          >
+            <mat-icon >edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Example icon button with a delete icon"
+
+            (click) = 'deleteKyThi(element.id)'
+
+          >
+            <mat-icon >delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      #paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,8 @@
+.wrapper, form{
+    display: flex;
+    flex-direction: column;
+}
+mat-radio-button{
+    display: flex;
+    flex-direction: row;
+}

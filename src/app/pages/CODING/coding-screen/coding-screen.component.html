@@ -1,0 +1,259 @@
+<div class="coding-wrapper">
+  <div class="header row d-flex align-items-center">
+    <div class="back-tap col-xl-3 col-lg-3 col-md-3" style="cursor: pointer">
+      <div class="d-flex flex-row">
+        <div class="d-flex" (click)="back()">
+          <mat-icon>chevron_left</mat-icon>
+          <span> Trở về </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 d-flex justify-content-center">
+      <!-- <app-clock
+        [height]="'0px'"
+        [width]="'0px'"
+        [time-limit]="this.time"
+      ></app-clock> -->
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3">
+      <mat-form-field
+        appearance="fill"
+        [ngStyle]="{ width: '100%' }"
+        *ngIf="this.all_questions_observable | async as all_questions"
+      >
+        <mat-label style="color: aliceblue">Danh sách câu hỏi</mat-label>
+        <mat-select
+          [(value)]="this.question_current"
+          (selectionChange)="this.changeQuestion($event.value)"
+        >
+          <mat-option
+            *ngFor="let question of all_questions; let i = index"
+            [value]="question"
+          >
+            Câu {{ i + 1 }}: {{ question.ten_cau_hoi }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="split-screen">
+    <as-split direction="horizontal" [gutterSize]="6">
+      <as-split-area [size]="25">
+        <ng-template
+          [ngIf]="!this.contentLoaded_question"
+          [ngIfElse]="questionContent"
+        >
+          <div
+            class="d-flex justify-content-center align-items-center"
+            style="height: 100%"
+          >
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-template>
+        <ng-template #questionContent>
+          <div class="d-flex flex-column m-4 pt-4">
+            <p>{{ this.question_current.ten_cau_hoi }}</p>
+            <div>
+              <h2>Mô tả</h2>
+              <p>{{ this.question_current.mo_ta }}</p>
+            </div>
+            <div>
+              <h2>Input/Output</h2>
+              <div class="pl-2">
+                <p>
+                  Thời gian thực thi :
+                  {{ this.question_current.gioi_han_thuc_thi }} giây
+                </p>
+                <h3>Input</h3>
+                <div class="pl-2">
+                  <p *ngFor="let dv of this.question_current.dau_vao">
+                    {{ dv.ten_dau_vao }} : {{ dv.kieu_du_lieu }}
+                  </p>
+                </div>
+                <h3>Output</h3>
+                <p class="pl-2">
+                  Kiểu dữ liệu : {{ this.question_current.kieu_du_lieu_dau_ra }}
+                </p>
+              </div>
+            </div>
+            <div>
+              <h2>Ví dụ:</h2>
+            </div>
+          </div>
+        </ng-template>
+      </as-split-area>
+      <as-split-area [size]="50">
+        <ng-template [ngIf]="!this.contentLoaded_scripts" [ngIfElse]="scripts">
+          <div
+            class="d-flex justify-content-center align-items-center"
+            style="height: 100%"
+          >
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-template>
+        <ng-template #scripts>
+          <div class="editor">
+            <span>main{{ format }}</span>
+            <div class="editor-language">
+              <span>{{ editorOptions.language | titlecase }}</span>
+              <div class="tip">
+                <button mat-icon-button>
+                  <mat-icon class="editor-icon" (click)="openDialog()"
+                    >create</mat-icon
+                  >
+                </button>
+                <span class="tooltip-text">
+                  Thay đổi giao diện và ngôn ngữ
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="my-code-editor">
+            <ngx-monaco-editor
+              style="height: 100%"
+              [options]="editorOptions"
+              [(ngModel)]="code"
+              (onInit)="onInit($event)"
+            ></ngx-monaco-editor>
+          </div>
+        </ng-template>
+      </as-split-area>
+      <as-split-area [size]="25">
+        <div class="content-test">
+          <span>Test</span>
+          <button mat-raised-button color="primary" (click)="runTest()">
+            <mat-icon>play_circle_outline</mat-icon>RUN TESTS
+          </button>
+        </div>
+        <ng-container *ngTemplateOutlet="testcase_template"> </ng-container>
+      </as-split-area>
+    </as-split>
+  </div>
+</div>
+<!-- define template  -->
+<ng-template #testcase_template>
+  <ng-template
+    [ngIf]="!this.contentLoaded_testcase"
+    [ngIfElse]="testcaseContent"
+  >
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="height: 100%"
+    >
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+  <ng-template #testcaseContent>
+    <ng-container
+      *ngTemplateOutlet="
+        this.compile_error.is_compile_error
+          ? compile_error_template
+          : testcase_list_template
+      "
+    >
+    </ng-container>
+  </ng-template>
+  <button
+    mat-raised-button
+    color="primary"
+    class="btn-submit"
+    (click)="openDialogSub()"
+  >
+    Hoàn thành bài thi
+  </button>
+</ng-template>
+
+<ng-template #compile_error_template>
+  <div style="color: red; margin-left: 10px" class="d-flex flex-column">
+    <h3>Compile Error :</h3>
+
+    <p>{{ this.compile_error.detail }}</p>
+  </div>
+</ng-template>
+
+<ng-template #testcase_list_template>
+  <div class="test-case">
+    <mat-accordion>
+      <mat-expansion-panel
+        *ngFor="let testcase of this.testcase_current_list; let i = index"
+        style="background: var(--background_color); color: var(--text_color)"
+      >
+        <mat-expansion-panel-header>
+          <ng-container *ngIf="this.is_get_testcase_result">
+            <ng-template
+              [ngIf]="testcase.gia_tri_dau_ra.gia_tri == testcase.output"
+              [ngIfElse]="cancelIcon"
+            >
+              <span class="mr-2"
+                ><mat-icon style="color: greenyellow"
+                  >check_circle_outline</mat-icon
+                ></span
+              >
+            </ng-template>
+            <ng-template #cancelIcon>
+              <span class="mr-2"
+                ><mat-icon style="color: greenyellow">cancel</mat-icon></span
+              >
+            </ng-template>
+          </ng-container>
+          Testcase {{ i + 1 }}:
+        </mat-expansion-panel-header>
+        <mat-panel-description> </mat-panel-description>
+        <div class="-padding-t-16">
+          <div class="-layout-h">
+            <div class="task-tests--label">Input:</div>
+            <pre
+              class="task-tests--value"
+            ><div *ngFor='let dauvao of testcase.chuoi_gia_tri_dau_vao'><span>{{dauvao.ten_dau_vao}}:</span> {{dauvao.gia_tri}}</div></pre>
+          </div>
+          <div class="-layout-h">
+            <div class="task-tests--label -space-v-8">
+              <div>Expected Output:</div>
+            </div>
+            <pre class="task-tests--value -answer">{{
+              testcase.gia_tri_dau_ra.gia_tri
+            }}</pre>
+          </div>
+          <ng-container *ngIf="this.is_get_testcase_result">
+            <div class="-layout-h">
+              <div class="task-tests--label -space-v-8">
+                <div>Output:</div>
+              </div>
+              <pre class="task-tests--value -answer">{{ testcase.output }}</pre>
+            </div>
+            <div class="-layout-h">
+              <div class="task-tests--label -space-v-8">
+                <div>Console log:</div>
+              </div>
+              <pre class="task-tests--value -answer">{{
+                testcase.console_log
+              }}</pre>
+            </div>
+          </ng-container>
+          <div class="task-tests--value -empty">
+            Click nút "Run Tests" để xem output và console logs.
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <!-- for test case hide -->
+    <mat-accordion>
+      <mat-expansion-panel
+        hideToggle
+        *ngFor="
+          let testcase of [].constructor(this.testcase_hide_sum)
+        "
+        style="background: var(--background_color); color: var(--text_color)"
+      >
+        <mat-expansion-panel-header>
+
+            <mat-icon>lock</mat-icon>
+            <span class="ml-2">Testcase</span>
+
+        </mat-expansion-panel-header>
+        Không thể mở
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</ng-template>

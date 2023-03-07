@@ -1,0 +1,97 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3 mt-2">Quản lý người dùng</div>
+  <div class="page__content shadow p-3 position-relative">
+    <div class="d-flex align-items-center justify-content-between">
+      <mat-form-field appearance="fill">
+        <mat-label>Tìm kiếm</mat-label>
+        <input matInput (keyup)="Filter($event)" />
+      </mat-form-field>
+      <div class="d-flex align-items-center">
+        <div class="upload-btn-wrapper" (change)="fileUpload($event)">
+          <button class="btn">Upload a Excel file</button>
+          <input type="file" name="myfile" accept=".xls,.xlsx" />
+        </div>
+
+        <button mat-icon-button color="primary" style="float: right" (click)="openDialog('Thêm', {})">
+          <mat-icon style="font-size: 45px; right: 8px; position: relative">add_box</mat-icon>
+        </button>
+      </div>
+      <!-- <button
+        mat-raised-button
+        color="accent"
+        style="float: right"
+        (click)="openFileDialog('Import', {})"
+      >
+        Nhập file
+      </button> -->
+    </div>
+    <div class="my-2">
+      <span class="text-danger"><i>Note:</i></span> Chỉnh sửa quyền học sinh khi nhấn liên tiếp vào quyền học sinh
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="this.dataSource">
+        <ng-container matColumnDef="Số thứ tự">
+          <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="firstname">
+          <th mat-header-cell *matHeaderCellDef>First name</th>
+          <td mat-cell *matCellDef="let element">{{ element?.first_name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="lastname">
+          <th mat-header-cell *matHeaderCellDef>Last name</th>
+          <td mat-cell *matCellDef="let element">{{ element?.last_name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="avatar">
+          <th mat-header-cell *matHeaderCellDef>Avatar</th>
+          <td mat-cell *matCellDef="let element">
+            <img class="img-response" height="80px" src="{{ link }}/{{ element?.avatar_pic }}" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element?.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Role</th>
+          <td mat-cell *matCellDef="let element" (dblclick)="changeRoleUser(element)">
+            <ng-template [ngIf]="element?.isEdit" [ngIfElse]="roleNameTemp">
+              <div>
+                <mat-form-field appearance="fill">
+                  <mat-select [ngModel]="element.role_id" (ngModelChange)="onChange($event, element)">
+                    <mat-option *ngFor="let role of roleList" [value]="role.id">
+                      {{role.text}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </ng-template>
+
+            <ng-template #roleNameTemp>
+              <span>{{
+              element.role_id | role_name
+            }}</span>
+            </ng-template>
+            <!-- <select *ngIf="this.changeRole" [ngModel]="element.role_id" (ngModelChange)="onChange($event, element.id)">
+              <option *ngFor="let role of roleList" value="{{ role.id }}">
+                {{ role.text }}
+              </option>
+            </select> -->
+
+
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="deleteUser(element.id)" mat-icon-button color="warn"><i class="material-icons">delete</i></button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>

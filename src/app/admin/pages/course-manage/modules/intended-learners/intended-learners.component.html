@@ -1,0 +1,156 @@
+<app-course-manage-header-content-layout>
+  <h1 header>Mục đích môn học</h1>
+  <div content>
+    <div style="padding: 48px; font-size: 16px">
+      <p style="padding-bottom: 48px">
+        Các mô tả sau đây sẽ được hiển thị công khai trên Trang đích khóa học
+        của bạn và sẽ có tác động trực tiếp đến hiệu suất khóa học của bạn.
+        Những mô tả này sẽ giúp người học quyết định xem khóa học của bạn có phù
+        hợp với họ hay không.
+      </p>
+      <h3 style="font-weight: bold">
+        Học viên sẽ học được gì trong khóa học của bạn?
+      </h3>
+      <p>
+        Bạn phải nhập ít nhất 4 mục tiêu hoặc kết quả học tập mà người học có
+        thể mong đợi đạt được sau khi hoàn thành khóa học của bạn.
+      </p>
+      <div
+        cdkDropList
+        class="example-list"
+        (cdkDropListDropped)="drop($event, whatWillLearn)"
+      >
+        <div
+          class="example-box"
+          *ngFor="
+            let knowleage of whatWillLearn;
+            let i = index;
+            trackBy: trackByFn
+          "
+          [cdkDragData]="whatWillLearn"
+          cdkDrag
+        >
+          <input
+            type="text"
+            placeholder="Ví dụ: Xác định và quản lý rủi ro dự án"
+            [(ngModel)]="whatWillLearn[i]"
+            (keyup)="this.keyUpEvent()"
+          />
+          <div class="action">
+            <div
+              class="example-handle"
+              (click)="deleteResponse(whatWillLearn, i)"
+            >
+              <mat-icon>delete</mat-icon>
+            </div>
+            <div class="example-handle" cdkDragHandle>
+              <mat-icon>menu</mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="add-response" (click)="addNewResponse(whatWillLearn)">
+          <mat-icon>add</mat-icon>
+          <span>Thêm nhiều hơn vào câu trả lời của bạn</span>
+        </div>
+      </div>
+      <h3>
+        Các yêu cầu hoặc điều kiện tiên quyết để tham gia khóa học của bạn là
+        gì?
+      </h3>
+      <p>
+        Liệt kê các kỹ năng, kinh nghiệm, công cụ hoặc thiết bị cần thiết mà
+        người học phải có trước khi tham gia khóa học của bạn. <br />
+        Nếu không có yêu cầu nào, hãy sử dụng không gian này như một cơ hội để
+        hạ thấp rào cản cho người mới bắt đầu.
+      </p>
+      <div
+        cdkDropList
+        class="example-list"
+        (cdkDropListDropped)="drop($event, prerequisites)"
+      >
+        <div
+          class="example-box"
+          *ngFor="
+            let requirement of prerequisites;
+            let i = index;
+            trackBy: trackByFn
+          "
+          [cdkDragData]="prerequisites"
+          cdkDrag
+        >
+          <input
+            type="text"
+            placeholder="Ví dụ: SQL cơ bản ..."
+            [(ngModel)]="prerequisites[i]"
+            (keyup)="this.keyUpEvent()"
+          />
+          <div class="action">
+            <div
+              class="example-handle"
+              (click)="deleteResponse(prerequisites, i)"
+            >
+              <mat-icon>delete</mat-icon>
+            </div>
+            <div class="example-handle" cdkDragHandle>
+              <mat-icon>menu</mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="add-response" (click)="addNewResponse(prerequisites)">
+          <mat-icon>add</mat-icon>
+          <span>Thêm nhiều hơn vào câu trả lời của bạn</span>
+        </div>
+      </div>
+      <h3>Khóa học này dành cho ai?</h3>
+      <p>
+        Viết mô tả rõ ràng về những người học dự định cho khóa học của bạn,
+        những người sẽ thấy nội dung khóa học của bạn có giá trị. <br />
+        Điều này sẽ giúp bạn thu hút đúng người học đến với khóa học của bạn.
+      </p>
+      <div
+        cdkDropList
+        class="example-list"
+        (cdkDropListDropped)="drop($event, courseForPeople)"
+      >
+        <div
+          class="example-box"
+          *ngFor="
+            let person of courseForPeople;
+            let i = index;
+            trackBy: trackByFn
+          "
+          [cdkDragData]="courseForPeople"
+          cdkDrag
+        >
+          <input
+            type="text"
+            placeholder="Ví dụ :Các nhà phát triển Python mới bắt đầu tò mò về khoa học dữ liệu"
+            [(ngModel)]="courseForPeople[i]"
+            (keyup)="this.keyUpEvent()"
+          />
+          <div class="action">
+            <div
+              class="example-handle"
+              (click)="deleteResponse(courseForPeople, i)"
+            >
+              <mat-icon>delete</mat-icon>
+            </div>
+            <div class="example-handle" cdkDragHandle>
+              <mat-icon>menu</mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="add-response" (click)="addNewResponse(courseForPeople)">
+          <mat-icon>add</mat-icon>
+          <span>Thêm nhiều hơn vào câu trả lời của bạn</span>
+        </div>
+      </div>
+    </div>
+
+    <div align="end">
+      <button  class="btn save-btn" style="width:20%;" (click)="updateData()">Cập nhật thay đổi</button>
+    </div>
+
+
+  </div>
+</app-course-manage-header-content-layout>
